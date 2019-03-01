@@ -1,5 +1,12 @@
 # Kotlin Workshop
 
+## Tidsplan
+00-30 : presentasjon økt 1
+30-35 : introdusere oppgaver
+35-60 : Oppgaveløsing
+60-70 : Gjennomgang oppgaver
+70-
+
 # 1 Basic Kotlin
 
 ## 1.1 Intro
@@ -11,13 +18,16 @@
 
 ## 1.2 Basic syntax
 * Expressions. Functions. Types
-* Named arguments. Optional arguments.
+* Kotlin type hierarchy
+* unit, nothing
+* Named arguments. Optional arguments (default verdi).
 * Assignment. Val, Var
 * Packages, files and classes. top level functions
 * return statement. One line functions
 * String formatting
 * Enums and when
 * Nullable
+* Smart casts
 * null safe operators
 * Safe cast
 * Quoted function name
@@ -29,48 +39,49 @@
 * open / closed
 * Parameters
 * Data classes
-* Sealed classes
 * Inheritance 
 * Constructors
+
+* Kotlin Test
+## Økt 2 
 * Companion object
-* Basic java interopp
-* Smart casts
-* Ranges
+* Sealed classes
 * object expressions
-* Kotlin type hierarchy
+* Multiple konstruktører
 * Generics
-* In, Out, Reified, inline
-* Variance, use site variance
 
 # 2 Functional Kotlin
 
 # 2.1 Collections
+* Ranges
 * Collections (mutability)
 * Get, set, by index syntax
+* backing field
 * Stream functions
-* Map, fold
+* Map, fold, filter
+* Block expression (let, run, with, apply, etc)
 * Exceptions (try as expression)
+
+
+## Økt 3
 
 # 2.2 Functions
 * Functions types
 * Member references
-* Arrow library?
 * Extension functions
 * Lambda with receiver
-* Block expression (let, run, with, apply, etc)
 * lazy
 * lateinit
 * delegate
-* backing field
 * sequence
 * destructuring
-* unit, nothing
 * infix
 
-
-# 3 Advanced
+* In, Out, Reified, inline
+* Variance, use site variance
 
 * Operator overloading
 * Dsl
 * Reflection
 * invoke
+* Basic java interopp
