@@ -67,21 +67,26 @@
 ## Økt 3
 
 # 2.2 Functions
-* Functions types
-* Member references
+* Lambda
+* sende og returnere funksjoner
+  * Functions types
+  * Member references
+  * assigne til val
+* foldRight
 * Extension functions
+* Generics
+* In, Out, Reified, inline
+* sequence/range
+* infix
+   * to
+* Operator overloading
+
 * Lambda with receiver
 * lazy
 * lateinit
 * delegate
-* sequence
-* destructuring
-* infix
 
-* In, Out, Reified, inline
 * Variance, use site variance
-
-* Operator overloading
 * Dsl
 * Reflection
 * invoke
