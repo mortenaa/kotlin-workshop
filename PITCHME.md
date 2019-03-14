@@ -31,13 +31,11 @@
 
 ---
 
-## Where to use Kotlin
-
- - Compiles to 
-   - Jvm
-   - Javascript
-   - Native
-   - Android
+## Kotlin compiles to 
+ - Jvm
+ - Javascript
+ - Native
+ - Android
 
 ---
 
@@ -46,7 +44,6 @@
  - IntelliJ has Kotlin support
  - Maven plugin
  - easy to run scripts (.kts)
- - In project (.kt)
 
 ---
 
@@ -68,8 +65,8 @@ var, val, type inference, == and no ';'
 var changeableName = "Variable"
 val finalName = "Value"
 changeableName = "Can be changed"
-
 //finalName = "Immutable"   -> compiler error
+
 val valueWithType: String = "Explicit type"
 
 println("Value" == finalName)  // java: .equals()
@@ -81,16 +78,16 @@ println("Value" === finalName) // java: ==
 ## Functions/methods 
  - fun keyword
  - can be top level outside class
- - can be returned and passed as argument
- - can return something
+ 
 
 ```kotlin
-fun square(n: Int): Int {
+fun squareWithBlock(n: Int): Int {
     return n * n
     //always 'return' in a block
 }
-fun oneLiner(n: Int) =  n * n
+fun squareOneLiner(n: Int) =  n * n
 println("square(3) == ${square(3)}")
+
 ```
 Note:
 
@@ -101,14 +98,34 @@ Note:
 
 ---
 
-## String, inline, multiline
+## No return value
+ - Will actually return an object of type Unit
+ - Unit can be inferred
+
+```kotlin
+fun printer(n: Int){
+    println("The number is $n")
+}
+
+fun printerWithUnit(n: Int): Unit {
+    println("The number is $n")
+}
+```
+
+---
+
+
+## Strings
+- Inline with $ og ${}
+- Multiline
+
 ```kotlin
 val firstName = "Bjørn"
 val lastName = "Hamre"
 val fullName = "$lastName, $firstName"
 val multiLineString = """
     | SELECT *
-    | FROM altinn_status
+    | FROM my_table
     | WHERE id = :id
     | -- can use " without escaping
 """.trimMargin()
@@ -116,28 +133,8 @@ val multiLineString = """
 
 ---
 
-## Functions/methods
- - Any -> java: Object
- - Unit -> java: void
- - Unit can be inferred
-
-```kotlin
-fun noReturn(name: String): Unit {
-    println("Name: $name")
-}
-fun anyFun(something: Any){
-    println("Parameter: $something")
-}
-noReturn("Bjørn")
-
-println("anyFun(42) = ${anyFun(42)}")
-//anyFun(42) = kotlin.Unit
-```
-
----
-
 ## Default values
-- Function arguments can have default value
+ - Function arguments can have default value
 
 ```kotlin
 fun printTemperature(degrees: Float, unit: String = "Celcius") {
@@ -152,18 +149,132 @@ printTemperature(37.0)
 
 ## Named arguments
  - Confusing with methods having many similar arguments
-   - confusing("Olsen", "Ole", true, true)
+   - what are the true, true ?
 
 ```kotlin
-fun confusing(last: String, first: String, active: Boolean, admin: Boolean) {}
+fun confusing(name: String, active: Boolean, admin: Boolean){}
 
-confusing("Olsen", "Ole", true, true)
-confusing(first = "Ole", last = "Olsen", admin = true, active = false)
+confusing("Ole", true, true)
+confusing(name = "Ole", admin = true, active = false)
+```
+
+---
+
+## Smart cast
+ - Any is the super class of all classes
+ - No need to cast after type is asserted
+
+```kotlin
+val something: Any = getAnObject()
+if ( something is String ) {
+    println( something.toUpperCase() )
+}
 
 ```
 
+---
+
+## Enums 
+
+```kotlin
+enum class Direction {
+    NORTH, SOUTH, WEST, EAST
+}
+
+enum class Color(val rgb: Int) {
+        RED(0xFF0000),
+        GREEN(0x00FF00),
+        BLUE(0x0000FF)
+}
+Color.RED.rgb
+```
 
 ---
+
+## Pattern matching
+ - Notice the smart casting (is)
+ 
+```kotlin
+val surprise: Any = getSomething()
+var whatIsIt: String? = null
+when ( surprise ){
+    is String -> whatIsIt = surprise.toUpperCase()
+    42        -> whatIsIt = "Life, the universe and everything"
+    3.14      -> whatIsIt = "PI"
+}
+```
+- But 'var' isn't functional !
+
+---
+
+## Pattern to avoid var
+ - Use `when` as expression
+ - Must cover all possibilities
+
+```kotlin
+val surprise: Any = getSomething()
+val whatIsIt: String = when ( surprise ){
+    is String -> surprise.toUpperCase()
+    42        -> "Life, the universe and everything"
+    3.14      -> "PI"
+    else      -> "Whatever"
+}
+```
+---
+
+## Pattern to avoid var
+ - use `if` as an expression
+
+```kotlin
+val random = Random().nextInt()
+val absolute = if ( random < 0 ) -random else random
+```
+
+---
+
+## Pattern to avoid var
+ - try catch as an expression
+ - Implicit return
+
+```kotlin
+val value = try {
+    getSomething() as String
+} catch (e: Exception){
+    "Not a string"
+}
+```
+---
+
+
+
+## Nullable types
+ - Every type has a complementary nullable type
+ - String and String?
+ - Compiler prevents assignment of null to "ordinary" types
+
+```kotlin
+//val middleName: String = null //will not compile
+val middleName: String? = null
+if (middleName != null){
+    //No need to .get() as in Optional
+    println("Middle name: $middleName")
+}
+``` 
+
+---
+## Nullsafe and Elvis
+To be used in "train wrecks"
+ - ?. 
+ - ?:
+
+```kotlin
+val middleName: String? = null
+val upperMiddleName: String? = middleName?.toUpperCase()
+val defaultIfNull: String = middleName?.toUpperCase()?:""
+```
+
+---
+
 ## Classes
  - Primary constructor
  - Default public
@@ -180,6 +291,12 @@ class Person(firstName: String, val lastName: String){
 val person = Person("Bjørn", "Hamre")
 println( person.fullName() ) //BJØRN HAMRE
 ```
+---
+
+## Class modifiers
+
+
+
 ---
 
 ## Nice class features
@@ -272,33 +389,6 @@ Note:
 ---
 
 
-## Nullable types
-Compiler prevents assignment of null to "ordinary" types
- - Every type has a complementary nullable type
- - String and String?
-
-```kotlin
-//val middleName: String = null
-val middleName: String? = null
-if (middleName != null){
-    //No need to .get() as in Optional
-    println("Middle name: $middleName")
-}
-``` 
-
----
-## Nullsafe and Elvis
-
- - ?. 
- - ?:
-
-```kotlin
-val middleName: String? = null
-val upperMiddleName: String? = middleName?.toUpperCase()
-val defaultIfNull: String = middleName?.toUpperCase()?:""
-```
-
----
 
 ## Collections
  - immutable "by default"
@@ -363,86 +453,3 @@ println("secret: $secret, message: $message")
 ```
 
 ---
-## Pattern matching as statement
- - Smart casting (is)
- - But 'var' isn't functional !
-
-```kotlin
-val surprise: Any = getSomething()
-var whatIsIt: String? = null
-when ( surprise ){
-    is String -> whatIsIt = surprise.toUpperCase()
-    42        -> whatIsIt = "Life, the universe and everything"
-    3.14      -> whatIsIt = "PI"
-}
-```
----
-
-## Be functional
- - Use immutable collections and (data) classes 
- - Don't use var - think of the kittens
-
-![var kills a kitten](assets/img/kitten.jpg)
-
----
-## Ronny:
- - var also kills the puppies
-
-![var kills puppies](assets/img/puppy.jpg)
-
----
-
-## How to avoid var
- - Use `when` as expression
- - Must cover all possibilities
-
-```kotlin
-val surprise: Any = getSomething()
-val whatIsIt: String = when ( surprise ){
-    is String -> surprise.toUpperCase()
-    42        -> "Life, the universe and everything"
-    3.14      -> "PI"
-    else      -> "Whatever"
-}
-```
-
----
-
-## How to avoid var
- - use `if` as an expression
-
-```java
-        Integer random = new Random().nextInt();
-        Integer absolute = null;
-        if( random < 0) absolute = -random;
-        else absolute = random;
-```
-```kotlin
-val random = Random().nextInt()
-val absolute = if ( random < 0 ) -random else random
-```
-
----
-
-## How to avoid var
- - try catch as an expression
- - Implicit return
-
-```kotlin
-val value = try {
-    getSomething() as String
-} catch (e: Exception){
-    "Not a string"
-}
-println("value: $value")
-```
----
-
-## Go practice
- - Use IntelliJ
- - Script (.kts) for playing
- - regular file (.kt) for classes
- - Clone kotlin maven project
-   - https://github.com/Ambita/kotlin-maven-template
- - Use maven plugin
- - #kotlin channel slack
