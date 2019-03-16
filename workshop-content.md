@@ -22,6 +22,7 @@
 * unit, nothing
 * Named arguments. Optional arguments (default verdi).
 * Assignment. Val, Var
+* Equality
 * Packages, files and classes. top level functions
 * return statement. One line functions
 * String formatting
@@ -85,3 +86,5 @@
 * Reflection
 * invoke
 * Basic java interopp
+* Coroutines
+* Contracts
