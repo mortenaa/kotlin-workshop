@@ -28,6 +28,7 @@
  - More declarative code
  - More functional style
  - Better support for immutability
+ - Null safe
 
 ---
 
@@ -42,7 +43,7 @@
 ## Getting started
  - Download Kotlin
  - IntelliJ has Kotlin support
- - Maven plugin
+ - Maven and gradle support
  - easy to run scripts (.kts)
 
 ---
@@ -54,7 +55,7 @@
  - Short, Byte
  - String, Char
  - ~~Long[]~~, `Array<Long>`
- - Any, All, Unit
+ - Any, Unit, nothing
 
 ---
 
@@ -71,6 +72,24 @@ val valueWithType: String = "Explicit type"
 
 println("Value" == finalName)  // java: .equals()
 println("Value" === finalName) // java: ==
+```
+---
+
+
+## Strings
+- Inline with $ og ${}
+- Multiline
+
+```kotlin
+val firstName = "Bjørn"
+val lastName = "Hamre"
+val fullName = "$lastName, $firstName"
+val multiLineString = """
+    | SELECT *
+    | FROM my_table
+    | WHERE id = :id
+    | -- can use " without escaping
+""".trimMargin()
 ```
 
 ---
@@ -114,25 +133,6 @@ fun printerWithUnit(n: Int): Unit {
 
 ---
 
-
-## Strings
-- Inline with $ og ${}
-- Multiline
-
-```kotlin
-val firstName = "Bjørn"
-val lastName = "Hamre"
-val fullName = "$lastName, $firstName"
-val multiLineString = """
-    | SELECT *
-    | FROM my_table
-    | WHERE id = :id
-    | -- can use " without escaping
-""".trimMargin()
-```
-
----
-
 ## Default values
  - Function arguments can have default value
 
@@ -144,6 +144,7 @@ fun printTemperature(degrees: Float, unit: String = "Celcius") {
 printTemperature(37.0, "Celcius")
 printTemperature(37.0)
 ```
+todo: vis output
 
 ---
 
@@ -156,6 +157,35 @@ fun confusing(name: String, active: Boolean, admin: Boolean){}
 
 confusing("Ole", true, true)
 confusing(name = "Ole", admin = true, active = false)
+```
+todo: må vi navngi alle?
+
+---
+
+## Nullable types
+ - Every type has a complementary nullable type
+ - String and String?
+ - Compiler prevents assignment of null to "ordinary" types
+
+```kotlin
+//val middleName: String = null //will not compile
+val middleName: String? = null
+if (middleName != null){
+    //No need to .get() as in Optional
+    println("Middle name: $middleName")
+}
+``` 
+
+---
+## Nullsafe and Elvis
+To be used in "train wrecks"
+ - ?. 
+ - ?:
+
+```kotlin
+val middleName: String? = null
+val upperMiddleName: String? = middleName?.toUpperCase()
+val defaultIfNull: String = middleName?.toUpperCase()?:""
 ```
 
 ---
@@ -170,23 +200,6 @@ if ( something is String ) {
     println( something.toUpperCase() )
 }
 
-```
-
----
-
-## Enums 
-
-```kotlin
-enum class Direction {
-    NORTH, SOUTH, WEST, EAST
-}
-
-enum class Color(val rgb: Int) {
-        RED(0xFF0000),
-        GREEN(0x00FF00),
-        BLUE(0x0000FF)
-}
-Color.RED.rgb
 ```
 
 ---
@@ -220,6 +233,9 @@ val whatIsIt: String = when ( surprise ){
     else      -> "Whatever"
 }
 ```
+
+// eksempel på when {}
+//eksempel på assignment va inne i when
 ---
 
 ## Pattern to avoid var
@@ -246,34 +262,6 @@ val value = try {
 ---
 
 
-
-## Nullable types
- - Every type has a complementary nullable type
- - String and String?
- - Compiler prevents assignment of null to "ordinary" types
-
-```kotlin
-//val middleName: String = null //will not compile
-val middleName: String? = null
-if (middleName != null){
-    //No need to .get() as in Optional
-    println("Middle name: $middleName")
-}
-``` 
-
----
-## Nullsafe and Elvis
-To be used in "train wrecks"
- - ?. 
- - ?:
-
-```kotlin
-val middleName: String? = null
-val upperMiddleName: String? = middleName?.toUpperCase()
-val defaultIfNull: String = middleName?.toUpperCase()?:""
-```
-
----
 
 ## Classes
  - Primary constructor
@@ -316,6 +304,22 @@ val m1 = Matrikkel(1201, 1, 10, 0, 0)
 val m2 = Matrikkel(1201, 1, 10)
 val m3 = Matrikkel(kommunenr = 1201, gaardsnr = 1, 
     bruksnr = 10, seksjonsnr = 1)
+```
+---
+
+## Enums 
+
+```kotlin
+enum class Direction {
+    NORTH, SOUTH, WEST, EAST
+}
+
+enum class Color(val rgb: Int) {
+        RED(0xFF0000),
+        GREEN(0x00FF00),
+        BLUE(0x0000FF)
+}
+Color.RED.rgb
 ```
 
 ---
@@ -385,10 +389,24 @@ val instance = MyClass.create()
 Note:
  - methods in companion object accessed with classname
 
+---
+
+## Tuples
+ - to
+ - destructuring
+
+```kotlin
+val tuple = 42 to "The meaning" //vis type
+println( "tuple: $tuple")
+val theSecret = tuple.first
+val (secret, message) = tuple
+println("secret: $secret, message: $message")
+```
 
 ---
 
-
+## Data class is tuple
+destructuring
 
 ## Collections
  - immutable "by default"
@@ -416,6 +434,9 @@ val mset  = mutableSetOf("Bjørn", "Erik", "Thomas")
 val mmap  = mutableMapOf("B" to "Bjørn", "E" to "Erik")
 println(mmap)
 ```
+
+//todo: .toMutable
+//ikke immutable i bytekode/java
 ---
 ## Using collections
  - Like in Java
@@ -437,19 +458,6 @@ val highSalaries: List<Long> =
         .map { it.salary }
 val average = highSalaries.average()
 
-```
-
----
-## Tuples
- - to
- - destructuring
-
-```kotlin
-val tuple = 42 to "The meaning"
-println( "tuple: $tuple")
-val theSecret = tuple.first
-val (secret, message) = tuple
-println("secret: $secret, message: $message")
 ```
 
 ---
