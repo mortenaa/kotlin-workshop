@@ -18,22 +18,59 @@ package no.mortenaa.part1
     Lambdas
  */
 
+/**
+ * Hello World.
+ *
+ * Make the function [helloWorld] return the [String] "Hello Word!"
+ */
 fun helloWorld(): String {
-    TODO("""
-        Make this function return the String "Hello World!"
-        """)
+    TODO()
 }
 
+/**
+ * Assignment.
+ *
+ * Assign a value to [a] such that the function returns 25"
+ */
 fun assignment(): Int {
-    val a: Int = TODO("Assign a value to a such that the function returns 25")
+    val a: Int = TODO()
     val b = 5
     return a * b
 }
 
-fun square(n: Int): Int = TODO("Make the function return the square of the input parameter 'n'")
+/**
+ * Square
+ *
+ * Return the square of the input [n]
+ */
+fun square(n: Int): Int = TODO()
 
+/**
+ * Max.
+ *
+ * Make this function return the highest number of [n] or [m]
+ */
 fun max(n: Int, m: Int): Int {
-    TODO("Make this function return the highest number of 'n' or 'm'")
+    TODO()
 }
 
-fun
+/**
+ * StringFormat.
+ *
+ * Use string templates ($) to format [name] and [value] as "name=value"
+ */
+fun stringFormat(name: String, value: Number): String {
+    TODO()
+}
+
+/**
+ * Json Format
+ *
+ * Use the function [joinToString] on the input [list] to return the list in a csv format.
+ * i.e. 1, 2, 3 => "[1, 2, 3]"
+ *
+ * HINT: Use the named arguments `prefix` and `postfix`
+ */
+fun jsonFormat(list: List<Int>): String {
+    TODO()
+}
