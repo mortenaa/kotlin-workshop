@@ -281,9 +281,19 @@ println( person.fullName() ) //BJØRN HAMRE
 ```
 ---
 
-## Class modifiers
+## Access modifiers
+Properties and methods of a class can be
+- public (default): available to all
+- private: only available from within the class
+- protected: available iwthin the class, in sub-classes and classes in same package
+- internal: avalable from any code in the same module (=copmiled together)
 
+---
 
+## Access getters and setters
+- Access permission for getter is same as property
+- Access permission for setter is same as property if not stated otherwise.
+- public is default if nothing is specified
 
 ---
 
@@ -369,6 +379,25 @@ object ObjectMapperFactory{
 }
 val objectMapper = ObjectMapperFactory.create() 
 ```
+note:
+object Util {
+fun numberOfProcessors() = Runtime.getRuntime().availableProcessors()
+}
+The Util object we created using the object declaration is a singleton. We can’t
+create objects of Util —it’s not considered to be a class by the Kotlin compiler;
+it’s already an object. Think of it like a Java class with a private constructor
+and only static methods
+
+If a
+group of functions are high level, general, and widely useful then place them
+directly within a package. If on the other hand, a few functions are more
+closely related to each other than the other functions, like f2c() and c2f() are
+more closely related to each other than to milesToKm() ,then place them within
+a singleton.
+
+In Kotlin you access properties by providing the name of the property instead
+of the getter or setter.
+
 
 ---
 
