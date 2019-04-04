@@ -44,18 +44,19 @@
  - Download Kotlin
  - IntelliJ has Kotlin support
  - Maven and gradle support
- - easy to run scripts (.kts)
+ - Easy to run scripts (.kts)
 
 ---
 
 ## Datatypes in Kotlin
+
 "Everything is an object"
  - Double, Float
  - Long, Int
  - Short, Byte
  - String, Char
  - ~~Long[]~~, `Array<Long>`
- - Any, Unit, nothing
+ - Any, Unit, Nothing
 
 ---
 
@@ -63,12 +64,13 @@
 var, val, type inference, == and no ';'
 
 ```kotlin
-var changeableName = "Variable"
-val finalName = "Value"
+var changeableName: String = "Variable"
+val finalName: String = "Value"
+
 changeableName = "Can be changed"
 //finalName = "Immutable"   -> compiler error
 
-val valueWithType: String = "Explicit type"
+val typeInferred = "Compiler recognizes the String"
 
 println("Value" == finalName)  // java: .equals()
 println("Value" === finalName) // java: ==
@@ -85,11 +87,11 @@ val firstName = "Bjørn"
 val lastName = "Hamre"
 val fullName = "$lastName, $firstName"
 val multiLineString = """
-    | SELECT *
-    | FROM my_table
-    | WHERE id = :id
-    | -- can use " without escaping
-""".trimMargin()
+    SELECT *
+    FROM my_table
+    WHERE id = :id
+    -- can use " without escaping
+""".trimIndent()
 ```
 
 ---
@@ -105,7 +107,7 @@ fun squareWithBlock(n: Int): Int {
     //always 'return' in a block
 }
 fun squareOneLiner(n: Int) =  n * n
-println("square(3) == ${square(3)}")
+println("square(3) == ${square(3)}") //> 9
 
 ```
 Note:
@@ -130,36 +132,39 @@ fun printerWithUnit(n: Int): Unit {
     println("The number is $n")
 }
 ```
-
+Note:
+- No return
+- No =
 ---
 
 ## Default values
  - Function arguments can have default value
 
 ```kotlin
-fun printTemperature(degrees: Float, unit: String = "Celcius") {
-    println("temperatur is $degrees $unit" )
+fun printTemperature(degrees: Double, unit: String = "Celcius") {
+    println("temperature is $degrees $unit" )
 }
-
 printTemperature(37.0, "Celcius")
 printTemperature(37.0)
+
+> temperature is 37.0 Celcius
+> temperature is 37.0 Celcius
 ```
-todo: vis output
 
 ---
 
 ## Named arguments
- - Confusing with methods having many similar arguments
-   - what are the true, true ?
+ - Confusing with methods having arguments of same type
+ - what are the true, true arguments?
 
 ```kotlin
-fun confusing(name: String, active: Boolean, admin: Boolean){}
+fun confusing(name: String, isActive: Boolean, isAdmin: Boolean){}
 
 confusing("Ole", true, true)
-confusing(name = "Ole", admin = true, active = false)
+confusing(name = "Ole", isAdmin = true, isActive = false)
 ```
-todo: må vi navngi alle?
-
+Note:
+When a function is called with both positional and named arguments, all the positional arguments should be placed before the first named one. For example, the call f(1, y = 2) is allowed, but f(x = 1, 2) is not.
 ---
 
 ## Nullable types
@@ -216,13 +221,14 @@ when ( surprise ){
     3.14      -> whatIsIt = "PI"
 }
 ```
-- But 'var' isn't functional !
+But 'var' isn't functional !
 
 ---
 
 ## Pattern to avoid var
  - Use `when` as expression
- - Must cover all possibilities
+ - Must cover all possibilities (be exhaustive)
+ - can have a default part (else)
 
 ```kotlin
 val surprise: Any = getSomething()
@@ -234,8 +240,17 @@ val whatIsIt: String = when ( surprise ){
 }
 ```
 
-// eksempel på when {}
-//eksempel på assignment va inne i when
+---
+## When without arguments
+ - Can replace long if-else if blocks with when
+ - Used as expressen -> must be exhaustive
+
+```kotlin
+val result = when {
+    char == 'A' || char == 'a' -> 1
+    else -> -1
+}
+``` 
 ---
 
 ## Pattern to avoid var
@@ -277,24 +292,8 @@ class Person(firstName: String, val lastName: String){
 }
 
 val person = Person("Bjørn", "Hamre")
-println( person.fullName() ) //BJØRN HAMRE
+println( person.fullName() ) //> BJØRN HAMRE
 ```
----
-
-## Access modifiers
-Properties and methods of a class can be
-- public (default): available to all
-- private: only available from within the class
-- protected: available iwthin the class, in sub-classes and classes in same package
-- internal: avalable from any code in the same module (=copmiled together)
-
----
-
-## Access getters and setters
-- Access permission for getter is same as property
-- Access permission for setter is same as property if not stated otherwise.
-- public is default if nothing is specified
-
 ---
 
 ## Nice class features
@@ -302,19 +301,57 @@ Properties and methods of a class can be
  - Named arguments
 
 ```kotlin
-data class Matrikkel(
-        val kommunenr  : Int,
-        val gaardsnr   : Int,
-        val bruksnr    : Int,
-        val festenr    : Int = 0,
-        val seksjonsnr : Int = 0
-)
+class Person(val lname: String,
+             val fname: String,
+             val mname: String = ""){
+    fun fullName() = "$fname $mname $lname"
+}
 
-val m1 = Matrikkel(1201, 1, 10, 0, 0)
-val m2 = Matrikkel(1201, 1, 10)
-val m3 = Matrikkel(kommunenr = 1201, gaardsnr = 1, 
-    bruksnr = 10, seksjonsnr = 1)
+val defaultMname = Person("Hamre", "Bjørn" )
+val namedArguments = Person(
+        fname = "Bjørn",
+        mname = "Håkonsen",
+        lname = "Hamre")
+
+println( defaultMname.fullName() ) //> Bjørn  Hamre
+println( namedArguments.fullName() ) //> Bjørn Håkonsen Hamre
 ```
+Note:
+- Default values at the end of the signature
+
+---
+## Data class
+- When data matters
+- immutable (if val)
+- copy(), toString(), equals()
+
+```kotlin
+data class Person(
+        val firstName: String,
+        val lastName: String,
+        val age: Int,
+        val sex: String = "Not given"
+)
+val bjorn = Person("Bjørn", "Hamre", 46)
+println(bjorn)
+> Person(firstName=Bjørn, lastName=Hamre, age=46, sex=Not given)
+val otherBjorn = bjorn.copy(sex = "Male", age = 29)
+println(otherBjorn)
+> Person(firstName=Bjørn, lastName=Hamre, age=29, sex=Male)
+```
+Note:
+ - Can implement methods
+ - Inheritance ?
+
+---
+
+## Access modifiers
+- Properties and methods of a class can be:
+   - public (default): available to all
+   - private: only available from within the class
+   - protected: available within the class, in sub-classes and classes in same package
+   - internal: available from any code in the same module (=compiled together)
+
 ---
 
 ## Enums 
@@ -343,31 +380,8 @@ Color.RED.rgb
 
 ---
 
-## Data class (Scala case class)
- - Immutable, toString, equals, hashCode
-   - without lombok !
- - .copy(), named arguments
- - testdata !
-
-```kotlin
-data class Employee(
-        val name: String,
-        val email: String,
-        val salary: Long
-)
-val emp = Employee("Bjørn", "bha@ambita.com", 5_000_000)
-println(emp) //Employee(name=Bjørn, email=bha@ambita.com, salary=5000000)
-val empJunior = emp.copy(name = "Junior", salary = 500_000)
-```
-Note:
- - Can implement methods
- - unsure about inheritance
-
-
----
-
 ## Singletons/utility classes
- - no private constructor and hassle
+No private constructor and hassle
 
 ```kotlin
 object ObjectMapperFactory{
@@ -404,7 +418,6 @@ of the getter or setter.
 ## Companion object
  - object inside class
  - E.g. factory
- - java: static methods
 
 ```kotlin
 class MyClass private constructor() {
@@ -417,6 +430,7 @@ val instance = MyClass.create()
 
 Note:
  - methods in companion object accessed with classname
+ - private constructor
 
 ---
 
@@ -425,7 +439,7 @@ Note:
  - destructuring
 
 ```kotlin
-val tuple = 42 to "The meaning" //vis type
+val tuple = 42 to "The meaning"
 println( "tuple: $tuple")
 val theSecret = tuple.first
 val (secret, message) = tuple
