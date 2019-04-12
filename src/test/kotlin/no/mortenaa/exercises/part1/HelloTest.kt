@@ -1,9 +1,8 @@
-package no.mortenaa.part1
+package no.mortenaa.exercises.part1
 
 import io.kotlintest.matchers.string.shouldStartWith
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
-import no.mortenaa.part1.acronym
 
 class AcronymTest : StringSpec({
 

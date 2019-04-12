@@ -1,21 +1,14 @@
-package no.mortenaa.part1
+package no.mortenaa.exercises.part1
 
-/*
-    Expressions. Functions. Types
-    Kotlin type hierarchy
-    unit, nothing
-    Named arguments. Optional arguments (default verdi).
-    Assignment. Val, Var
-    Packages, files and classes. top level functions
-    return statement. One line functions
-    String formatting
-    Enums and when
-    Nullable
-    Smart casts
-    null safe operators
-    Safe cast
-    Quoted function name
-    Lambdas
+/**
+ *
+ * Variables
+ *
+ * - variable assignment
+ * - difference of var and val
+ * - add explicit type signature (how to test?)
+ * - remove all type signatures while still compiles (how to test?)
+ *
  */
 
 /**
@@ -74,3 +67,11 @@ fun stringFormat(name: String, value: Number): String {
 fun jsonFormat(list: List<Int>): String {
     TODO()
 }
+
+
+fun sumSquared(x: Int, y: Int) = (x + y) * (x + y)
+
+
+
+//TODO: lage egne funksjoner
+//TODO: sealed -> option

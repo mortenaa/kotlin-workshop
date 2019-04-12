@@ -1,4 +1,4 @@
-package no.mortenaa.part1
+package no.mortenaa.exercises.part1
 
 import io.kotlintest.matchers.match
 import io.kotlintest.should
@@ -23,7 +23,7 @@ class BasicsTest : StringSpec({
 
     "4. max(n, m) should return the highest of n and m" {
         max(1, 2) shouldBe 2
-        max(2, 1) shouldBe 1
+        max(2, 1) shouldBe 2
         max(3, 3) shouldBe 3
         max(-1, -2) shouldBe -1
     }
