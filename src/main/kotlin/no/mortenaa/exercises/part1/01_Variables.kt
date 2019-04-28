@@ -12,21 +12,21 @@ package no.mortenaa.exercises.part1
  */
 
 /**
- * Hello World.
+ * 1. Hello World.
  *
  * Make the function [helloWorld] return the [String] "Hello Word!"
  */
 fun helloWorld(): String {
-    TODO()
+    return "Hello World!"
 }
 
 /**
- * Assignment.
+ * 2. Assignment.
  *
  * Assign a value to [a] such that the function returns 25"
  */
 fun assignment(): Int {
-    val a: Int = TODO()
+    val a: Int = 5
     val b = 5
     return a * b
 }
@@ -36,7 +36,7 @@ fun assignment(): Int {
  *
  * Return the square of the input [n]
  */
-fun square(n: Int): Int = TODO()
+fun square(n: Int): Int = n * n
 
 /**
  * Max.
@@ -44,7 +44,7 @@ fun square(n: Int): Int = TODO()
  * Make this function return the highest number of [n] or [m]
  */
 fun max(n: Int, m: Int): Int {
-    TODO()
+    return if (n > m) n else m
 }
 
 /**
@@ -53,7 +53,7 @@ fun max(n: Int, m: Int): Int {
  * Use string templates ($) to format [name] and [value] as "name=value"
  */
 fun stringFormat(name: String, value: Number): String {
-    TODO()
+    return "$name=$value"
 }
 
 /**
@@ -65,7 +65,7 @@ fun stringFormat(name: String, value: Number): String {
  * HINT: Use the named arguments `prefix` and `postfix`
  */
 fun jsonFormat(list: List<Int>): String {
-    TODO()
+    return list.joinToString(prefix = "[", postfix = "]")
 }
 
 
