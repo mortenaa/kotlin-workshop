@@ -342,6 +342,52 @@ Note:
 - Put default values at the end of the signature
 
 ---
+## Inheritance
+ - Superclass must be open
+ - Using ':'
+ - Must call constructor on superclass
+
+```kotlin
+open class Person(val name: String)
+class IdentifiablePerson(val ssn: String, name: String) : Person(name)
+
+val citizen = IdentifiablePerson("01017012345", "Bjørn")
+println("Name: ${citizen.name}, ssn: ${citizen.ssn}")
+> Name: Bjørn, ssn: 01017012345
+```
+Note:
+Eksempel til senere hvis vi skal vise get() og fields
+open class Person(val name: String)
+class IdentifiablePerson(_ssn: String, name: String) : Person(name){
+    val ssn: String = _ssn
+        get() = "${field.substring(0, 6)}*****"
+}
+
+val citizen = IdentifiablePerson("01017012345", "Bjørn")
+println("Name: ${citizen.name}, ssn: ${citizen.ssn}")
+
+---
+
+## Implement interface
+ - Using ':' as inheritance
+ - Must have override on methods
+
+```kotlin
+interface PersonService{
+    fun addPerson(personToAdd: Person)
+}
+
+class PersonServiceImpl : PersonService {
+    override fun addPerson(personToAdd: Person) {
+        println("Persisting to database: $personToAdd")
+    }
+}
+```
+
+Note:
+Skal vi si noe om sealed?
+
+---
 ## Data class
 - When data matters
 - immutable (if val)
@@ -382,6 +428,149 @@ enum class Color(val rgb: Int) {
 }
 Color.RED.rgb
 ```
+---
+## Collections
+ - immutable "by default"
+
+```kotlin
+val list = listOf("Bjørn", "Erik", "Thomas")
+val set  = setOf("Bjørn", "Erik", "Thomas")
+val map  = mapOf("B" to "Bjørn", "E" to "Erik")
+val modifiedList = list + "The Bear"
+println(list) //[Bjørn, Erik, Thomas]
+println(modifiedList) //[Bjørn, Erik, Thomas, The Bear]
+```
+
+---
+
+## Collections
+ - can be mutable
+
+```kotlin
+val arrayList  = arrayListOf("Bjørn", "Erik", "Thomas")
+val array      = arrayOf("Bjørn", "Erik", "Thomas")
+
+val mlist = mutableListOf("Bjørn", "Erik", "Thomas")
+val mset  = mutableSetOf("Bjørn", "Erik", "Thomas")
+val mmap  = mutableMapOf("B" to "Bjørn", "E" to "Erik")
+println(mmap)
+```
+Note:
+//todo: .toMutable
+//ikke immutable i bytekode/java
+---
+
+## Accessing elements
+- Accessed by `[index]` or `.get(index)`
+- `+` appends an element (last/to the right)
+- Can be copied to mutable
+
+```kotlin
+val fruits = listOf("Apple", "Banana")
+val apple = fruits[0]
+val banana = fruits.get(1)
+
+val moreFruits = fruits + "Orange"
+val mixedUp: String = "Orange" + fruits
+val mutableFruits = moreFruits.toMutableList()
+mutableFruits.add("Kiwi")
+```
+
+---
+
+## Filter and Map collections
+ - Like in Java
+ - No .stream() or .collect()
+ - Convention on naming parameter 'it'
+
+```kotlin
+data class Employee(val name: String, val salary: Long)
+
+val employees = listOf(
+    Employee("Bjørn", 1_000_000),
+    Employee("Junior", 300_000),
+    Employee("The Boss", 5_000_000)
+)
+
+val highSalaries: List<Long> =
+    employees.filter { emp -> emp.salary > 500_000 }
+        .filter { it.salary > 500_000 }
+        .map { it.salary }
+val average = highSalaries.average()
+
+```
+
+---
+
+## Reduce a collection
+- reduce/reduceRight
+   - Starts with first two elements
+- fold/foldRight
+   - Requires initial value
+   - Starts with initial value and first element
+   - Can be applied to empty collections
+
+```kotlin
+val sumReducedRight = employees.map{it.salary}
+    .reduceRight(Long::plus)
+val sumReduced = employees.map{it.salary}
+    .reduce{ it, sum -> sum + it}
+
+val sumFoldedRight = employees.map { it.salary }
+    .foldRight(0L, Long::plus)
+val sumFolded = employees.map { it.salary }
+    .foldRight(0L){it, sum -> it + sum}
+```
+
+---
+
+## Lamdas
+- Function style: `(params) -> returnType` 
+- Types can be inferred in one position
+
+```kotlin
+val concatenator: (s1: String, s2: String) -> String 
+    = { s1: String, s2: String -> s1+s2}
+val concatenator: (s1: String, s2: String) -> String 
+    = { s1, s2 -> s1+s2}
+val concatenator = { s1: String, s2: String -> s1+s2}
+
+val name = concatenator("First", "Last")
+```
+
+---
+
+## Pass lambda as argument to function
+- Lambda as last parameter
+- Use separate block when calling
+
+```kotlin
+fun intOperator(v1: Int, v2: Int, operation: (Int, Int) -> Int ): Int = operation(v1, v2)
+val sum = intOperator(2, 3){ n1, n2 -> n1 + n2}
+val sum2 = intOperator(2, 3, Int::plus)
+```
+---
+
+## Return lambda from function
+- Return type is a lambda
+
+```kotlin
+fun times(base: Int): (Int) -> Int = { value -> base * value}
+val doubler = times(2)
+val triplse: (Int) -> Int = times(3)
+println("2 x 4 = ${doubler(4)}")
+> 2 x 4 = 8
+```
+
+---
+## More about classes
+ - Can be abstract, sealed, open
+ - Can have several constructors
+ - Can implement interfaces
+ - supports inheritance
+ - ...whatever java classes can do
+
+
 ---
 
 ## Singletons (utility classes)
@@ -448,65 +637,6 @@ val bjorn = Person("Bjørn", 46, "Programmer")
 val (na, _, occ) = bjorn
 println("$na is a $occ")
 ```
----
-## Collections
- - immutable "by default"
 
-```kotlin
-val list = listOf("Bjørn", "Erik", "Thomas")
-val set  = setOf("Bjørn", "Erik", "Thomas")
-val map  = mapOf("B" to "Bjørn", "E" to "Erik")
-val modifiedList = list + "The Bear"
-println(list) //[Bjørn, Erik, Thomas]
-println(modifiedList) //[Bjørn, Erik, Thomas, The Bear]
-```
 
----
 
-## Collections
- - can be mutable
-
-```kotlin
-val arrayList  = arrayListOf("Bjørn", "Erik", "Thomas")
-val array      = arrayOf("Bjørn", "Erik", "Thomas")
-
-val mlist = mutableListOf("Bjørn", "Erik", "Thomas")
-val mset  = mutableSetOf("Bjørn", "Erik", "Thomas")
-val mmap  = mutableMapOf("B" to "Bjørn", "E" to "Erik")
-println(mmap)
-```
-
-//todo: .toMutable
-//ikke immutable i bytekode/java
----
-## Using collections
- - Like in Java
- - No .stream() or .collect()
- - Use { and }
-
-```kotlin
-data class Employee(val name: String, val salary: Long)
-
-val employees = listOf(
-    Employee("Bjørn", 1_000_000),
-    Employee("Junior", 300_000),
-    Employee("The Boss", 5_000_000)
-)
-
-val highSalaries: List<Long> =
-    employees.filter { it.salary > 500_000 }
-        .filter { emp -> emp.salary > 500_000 }
-        .map { it.salary }
-val average = highSalaries.average()
-
-```
-
----
----
-
-## More about classes
- - Can be abstract, sealed, open
- - Can have several constructors
- - Can implement interfaces
- - supports inheritance
- - ...whatever java classes can do
