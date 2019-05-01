@@ -561,6 +561,35 @@ val triplse: (Int) -> Int = times(3)
 println("2 x 4 = ${doubler(4)}")
 > 2 x 4 = 8
 ```
+---
+
+## Tuples/Pair
+ - `to`
+ - destructuring
+
+```kotlin
+val tuple = 42 to "The meaning"
+val theSecret = tuple.first
+
+val (secret, message) = tuple
+```
+---
+
+## Data class is tuple
+- Can be destructured
+- `_``for unused values
+- Order is important
+
+```kotlin
+data class Person(val name: String, val age: Int, val occupation: String)
+val bjorn = Person("Bjørn", 46, "Programmer")
+val (na, _, occ) = bjorn
+```
+
+---
+
+# Part 3
+
 
 ---
 ## More about classes
@@ -616,27 +645,6 @@ directly within a package.
 
 ---
 
-## Tuples
- - to
- - destructuring
-
-```kotlin
-val tuple = 42 to "The meaning"
-println( "tuple: $tuple")
-val theSecret = tuple.first
-val (secret, message) = tuple
-println("secret: $secret, message: $message")
-```
-
----
-
-## Data class is tuple
-```kotlin
-data class Person(val name: String, val age: Int, val occupation: String)
-val bjorn = Person("Bjørn", 46, "Programmer")
-val (na, _, occ) = bjorn
-println("$na is a $occ")
-```
 
 
 
