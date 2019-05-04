@@ -1,5 +1,8 @@
 package no.mortenaa.exercises.part1
 
+import java.time.Instant
+import java.time.LocalDate
+
 /**
  *
  * Variables
@@ -12,7 +15,7 @@ package no.mortenaa.exercises.part1
  */
 
 /**
- * Hello World.
+ * 1. Hello World.
  *
  * Make the function [helloWorld] return the [String] "Hello Word!"
  */
@@ -21,14 +24,44 @@ fun helloWorld(): String {
 }
 
 /**
- * Assignment.
+ * 2. Assignment.
  *
  * Assign a value to [a] such that the function returns 25"
+ *
  */
 fun assignment(): Int {
     val a: Int = TODO()
     val b = 5
     return a * b
+}
+
+/**
+ * 3. Var and Val
+ *
+ * Rewrite the function to use [val] instead of [var]
+ *
+ */
+fun varAndVal(a: String, b: String): String {
+    var name: String = a.capitalize()
+    name += " and "
+    name += b.capitalize()
+    return name
+}
+
+/**
+ * 4. Strings
+ *
+ * Take the input in the form "Lastname, Firstname, age" and return
+ * the a String containing "FL: Age"
+ * where F and L are upcase initials
+ *
+ * [Char.toUpperCase]
+ * [String.first]
+ * [String.split]
+ *
+ */
+fun strings(input: String): String {
+    TODO()
 }
 
 /**
@@ -69,9 +102,52 @@ fun jsonFormat(list: List<Int>): String {
 }
 
 
-fun sumSquared(x: Int, y: Int) = (x + y) * (x + y)
+/**
+ * Anagram
+ *
+ * [String.reversed]
+ *
+ */
+fun isAnagram(s: String): Boolean {
+    TODO()
+}
 
+/**
+ * Pangram
+ */
+fun isPangram(s: String): Boolean {
+    TODO()
+}
 
+/**
+ * Leap Year
+ *
+ * [Int.rem]
+ *
+ */
+fun isLeapYear(year: Int): Boolean {
+  TODO()
+}
 
-//TODO: lage egne funksjoner
-//TODO: sealed -> option
+/**
+ * Rot 13
+ *
+ */
+fun rot13(s: String): String {
+    TODO()
+}
+
+/**
+ * Multiline String
+ *
+ * Format as JSON using multiline String and String interpolation
+ * """
+ * {
+ *      "title": "Captain Marvel",
+ *      ...
+ * }
+ * """
+ */
+fun movieToJson(title: String, productionYear: Int, runtime: Int, rating: String = "PG-12", country: String = "USA") {
+    TODO()
+}

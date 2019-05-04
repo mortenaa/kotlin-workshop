@@ -1,5 +1,6 @@
 package no.mortenaa.exercises.part1
 
+import io.kotlintest.fail
 import io.kotlintest.matchers.match
 import io.kotlintest.should
 import io.kotlintest.shouldBe
@@ -13,6 +14,11 @@ class BasicsTest : StringSpec({
 
     "2. assignment() should return 25" {
         assignment() shouldBe 25
+    }
+
+    "3. use val instead of var" {
+        fail("Remove this line when you have finished the exercise")
+        varAndVal("Korg", "Miek") should match("Korg and Miek")
     }
 
     "3. square(n) should return n*n" {
