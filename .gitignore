@@ -29,4 +29,6 @@ hs_err_pid*
 *.iml
 *.ipr
 
+.kotlintest/
+
 OFFLINE/

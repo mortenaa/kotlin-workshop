@@ -6,10 +6,14 @@
 
 # Program
 
- - 40 min. introduction
- - 25 min. excercises
- - 10 min. solutions
-
+ - Part 1 - Syntax / Functions / Types
+    - 40 min. introduction
+    - 40 min. exercises
+    - 10 min. solutions
+ - Part 2 - Classes / Objects / Collection
+    - 30 min. theory
+    - 40 min. exercises
+    - 10 min. solutions 
 ---
 
 ## About Kotlin
@@ -18,8 +22,12 @@
  - Developed by Jetbrains
  - Inspired (a lot) by Scala, Groovy and others
  
+--- 
+ 
 ## Resources
  - https://kotlinlang.org/docs/reference/
+ - https://play.kotlinlang.org/koans/overview
+ - https://www.coursera.org/learn/kotlin-for-java-developers
 
 ---
 
@@ -31,6 +39,8 @@
  - Null safe
 
 ---
+Note:
+Popular on android. Supported by Google.
 
 ## Kotlin compiles to 
  - Jvm
@@ -59,6 +69,8 @@
  - Any, Unit, Nothing
 
 ---
+Note:
+Not primitive types. Basic types are compiled to native Jvm types where possible.
 
 ## Variables/Values
 var, val, type inference, == and no ';'
@@ -75,8 +87,11 @@ val typeInferred = "Compiler recognizes the String"
 println("Value" == finalName)  // java: .equals()
 println("Value" === finalName) // java: ==
 ```
----
 
+Note:
+Semicolons are optional, but are by convention only used to separate multiple statements on the same line.
+
+---
 
 ## Strings
 - Inline with $ og ${}
@@ -95,6 +110,8 @@ val multiLineString = """
 ```
 
 ---
+Note:
+$ is used for single variables, ${} evaluating expressions
 
 ## Functions/methods 
  - fun keyword
@@ -116,7 +133,7 @@ Note:
  - return type end of signatur
  - return type inferred in oneliners
  - placement of colon
-
+ - a top level function will be compiled in a class corresponding to the source file on the jvm.
 ---
 
 ## No return value
@@ -124,7 +141,7 @@ Note:
  - Unit can be inferred
 
 ```kotlin
-fun printer(n: Int){
+fun printer(n: Int) {
     println("The number is $n")
 }
 
@@ -175,7 +192,7 @@ When a function is called with both positional and named arguments, all the posi
 ```kotlin
 //val middleName: String = null //will not compile
 val middleName: String? = null
-if (middleName != null){
+if (middleName != null) {
     //No need to .get() as in Optional
     println("Middle name: $middleName")
 }
@@ -201,8 +218,8 @@ val defaultIfNull: String = middleName?.toUpperCase()?:""
 
 ```kotlin
 val something: Any = getAnObject()
-if ( something is String ) {
-    println( something.toUpperCase() )
+if (something is String) {
+    println(something.toUpperCase())
 }
 
 ```
@@ -215,7 +232,7 @@ if ( something is String ) {
 ```kotlin
 val surprise: Any = getSomething()
 var whatIsIt: String? = null
-when ( surprise ){
+when (surprise) {
     is String -> whatIsIt = surprise.toUpperCase()
     42        -> whatIsIt = "Life, the universe and everything"
     3.14      -> whatIsIt = "PI"
@@ -232,7 +249,7 @@ But 'var' isn't functional !
 
 ```kotlin
 val surprise: Any = getSomething()
-val whatIsIt: String = when ( surprise ){
+val whatIsIt: String = when (surprise) {
     is String -> surprise.toUpperCase()
     42        -> "Life, the universe and everything"
     3.14      -> "PI"
@@ -258,7 +275,7 @@ val result = when {
 
 ```kotlin
 val random = Random().nextInt()
-val absolute = if ( random < 0 ) -random else random
+val absolute = if (random < 0) -random else random
 ```
 
 ---
@@ -270,7 +287,7 @@ val absolute = if ( random < 0 ) -random else random
 ```kotlin
 val value = try {
     getSomething() as String
-} catch (e: Exception){
+} catch (e: Exception) {
     "Not a string"
 }
 ```
@@ -284,11 +301,11 @@ val value = try {
 ## Classes
  - Primary constructor
  - Default public
- - No `new` when instansiating
+ - No `new` when instantiating
  - Getters and Setters (for vars) generated
 
 ```kotlin
-class Person(val firstName: String, var lastName: String){
+class Person(val firstName: String, var lastName: String) {
 }
 
 val bjorn = Person("Bjørn", "Hamre")
@@ -325,7 +342,7 @@ public final class no.hamre.Classes$Person {
 ```kotlin
 class Person(val lastName: String,
              val firstName: String,
-             val middleName: String = ""){
+             val middleName: String = "") {
     fun fullName() = "$firstName $middleName $lastName"
 }
 
@@ -335,11 +352,12 @@ val namedArguments = Person(
     middleName = "Håkonsen",
     lastName = "Hamre")
 
-println( defaultMiddleName.fullName() ) //> Bjørn  Hamre
-println( namedArguments.fullName() )    //> Bjørn Håkonsen Hamre
+println(defaultMiddleName.fullName()) //> Bjørn Hamre
+println(namedArguments.fullName())    //> Bjørn Håkonsen Hamre
 ```
 Note:
 - Put default values at the end of the signature
+- When using named arguments to the constructor it looks a lot like a builder
 
 ---
 ## Inheritance
@@ -356,7 +374,8 @@ println("Name: ${citizen.name}, ssn: ${citizen.ssn}")
 > Name: Bjørn, ssn: 01017012345
 ```
 Note:
-Eksempel til senere hvis vi skal vise get() og fields
+ - Classes are closed by default
+ - Eksempel til senere hvis vi skal vise get() og fields
 open class Person(val name: String)
 class IdentifiablePerson(_ssn: String, name: String) : Person(name){
     val ssn: String = _ssn
@@ -373,7 +392,7 @@ println("Name: ${citizen.name}, ssn: ${citizen.ssn}")
  - Must have override on methods
 
 ```kotlin
-interface PersonService{
+interface PersonService {
     fun addPerson(personToAdd: Person)
 }
 
@@ -386,7 +405,8 @@ class PersonServiceImpl : PersonService {
 
 Note:
 Skal vi si noe om sealed?
-
+Sealed classes must have all subclasses implemented in the same file.
+All possible implementations of a seal class are known
 ---
 ## Data class
 - When data matters
@@ -409,8 +429,9 @@ println(otherBjorn)
 ```
 Note:
  - Can implement methods
- - Inheritance ?
-
+ - Inheritance: A data class can extend but not be extended
+ - Copy with named parameters is usefull for making a copy with a few parameters changed.
+   Usefull for keeping objects immutable. Make a modified copy instead of modifying. 
 ---
 
 ## Enums 
@@ -481,7 +502,7 @@ mutableFruits.add("Kiwi")
 ## Filter and Map collections
  - Like in Java
  - No .stream() or .collect()
- - Convention on naming parameter 'it'
+ - Implicit parameter is named 'it'
 
 ```kotlin
 data class Employee(val name: String, val salary: Long)
@@ -511,20 +532,20 @@ val average = highSalaries.average()
    - Can be applied to empty collections
 
 ```kotlin
-val sumReducedRight = employees.map{it.salary}
+val sumReducedRight = employees.map { it.salary }
     .reduceRight(Long::plus)
-val sumReduced = employees.map{it.salary}
+val sumReduced = employees.map { it.salary }
     .reduce{ it, sum -> sum + it}
 
 val sumFoldedRight = employees.map { it.salary }
     .foldRight(0L, Long::plus)
 val sumFolded = employees.map { it.salary }
-    .foldRight(0L){it, sum -> it + sum}
+    .foldRight(0L){ it, sum -> it + sum }
 ```
 
 ---
 
-## Lamdas
+## Lambdas
 - Function style: `(params) -> returnType` 
 - Types can be inferred in one position
 
@@ -546,7 +567,7 @@ val name = concatenator("First", "Last")
 
 ```kotlin
 fun intOperator(v1: Int, v2: Int, operation: (Int, Int) -> Int ): Int = operation(v1, v2)
-val sum = intOperator(2, 3){ n1, n2 -> n1 + n2}
+val sum = intOperator(2, 3) { n1, n2 -> n1 + n2 }
 val sum2 = intOperator(2, 3, Int::plus)
 ```
 ---
@@ -555,9 +576,9 @@ val sum2 = intOperator(2, 3, Int::plus)
 - Return type is a lambda
 
 ```kotlin
-fun times(base: Int): (Int) -> Int = { value -> base * value}
+fun times(base: Int): (Int) -> Int = { value -> base * value }
 val doubler = times(2)
-val triplse: (Int) -> Int = times(3)
+val trippler: (Int) -> Int = times(3)
 println("2 x 4 = ${doubler(4)}")
 > 2 x 4 = 8
 ```
@@ -577,7 +598,7 @@ val (secret, message) = tuple
 
 ## Data class is tuple
 - Can be destructured
-- `_``for unused values
+- `_` for unused values
 - Order is important
 
 ```kotlin
