@@ -56,7 +56,7 @@ class FunctionsTest : StringSpec({
     }
 
     "9. paceCalculator" {
-        pace(1000, 60, 0) shouldBe Pair(6, 0)
+        pace(1000, 60, 0) shouldBe Pair(60, 0)
         pace(5000, 25, 0) shouldBe Pair(5, 0)
         pace(3000, 20, 30) shouldBe Pair(6, 50)
     }
