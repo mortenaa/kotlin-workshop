@@ -13,7 +13,7 @@ fun stringFormat(name: String, value: Number): String {
  * 2. Split string
  *
  * Take the input in the form "Lastname, Firstname, age" and return
- * the a String containing "FL: Age"
+ * the a string formatted as "FL: Age"
  * where F and L are uppercase initials
  *
  * Useful functions:
@@ -41,7 +41,7 @@ fun isPalindrome(s: String): Boolean {
 /**
  * 4. Json Format
  *
- * Use the function [joinToString] on the input [list] to return the list in a csv format.
+ * Use the function [joinToString] on the input [list] to return the comma separated list inside brackets.
  * i.e. 1, 2, 3 => "[1, 2, 3]"
  *
  * HINT: Use the named arguments `prefix` and `postfix`
@@ -77,6 +77,3 @@ fun movieToJson(title: String, year: Int, runtime: Int, rating: String = "PG-12"
 fun acronym(title: String): String {
     TODO()
 }
-
-
-

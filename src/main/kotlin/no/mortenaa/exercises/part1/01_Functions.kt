@@ -10,7 +10,7 @@ package no.mortenaa.exercises.part1
 /**
  * 1. Hello World.
  *
- * Make the function [helloWorld] return the [String] "Hello Word!"
+ * Make the function [helloWorld] return the [String] "Hello World!"
  */
 fun helloWorld(): String {
     TODO()
@@ -32,8 +32,8 @@ fun assignment(): Int {
  * 3. Var and Val
  *
  * Rewrite the function to use [val] instead of [var]
- * (this exercise can not be verified by the test code, so simply
- * remove the call to fail("...") when you done)
+ * (this exercise cannot be verified by the test code, so simply
+ * remove the call to fail("...") when you're done)
  *
  */
 fun varAndVal(a: String, b: String): String {
