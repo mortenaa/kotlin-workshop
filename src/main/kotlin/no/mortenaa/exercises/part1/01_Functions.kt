@@ -12,9 +12,7 @@ package no.mortenaa.exercises.part1
  *
  * Make the function [helloWorld] return the [String] "Hello World!"
  */
-fun helloWorld(): String {
-    TODO()
-}
+fun helloWorld(): String = "Hello World!"
 
 /**
  * 2. Assignment.
@@ -23,7 +21,7 @@ fun helloWorld(): String {
  *
  */
 fun assignment(): Int {
-    val a: Int = TODO()
+    val a = 5
     val b = 5
     return a * b
 }
@@ -37,9 +35,7 @@ fun assignment(): Int {
  *
  */
 fun varAndVal(a: String, b: String): String {
-    var name: String = a.capitalize()
-    name += " and "
-    name += b.capitalize()
+    val name = "${a.capitalize()} and ${b.capitalize()}"
     return name
 }
 
@@ -48,25 +44,21 @@ fun varAndVal(a: String, b: String): String {
  *
  * Return the square of the input [n]
  */
-fun square(n: Int): Int = TODO()
+fun square(n: Int): Int = n * n
 
 /**
  * 5. Max.
  *
  * Make this function return the highest number of [n] or [m]
  */
-fun max(n: Int, m: Int): Int {
-    TODO()
-}
+fun max(n: Int, m: Int): Int = if (n > m) n else m
 
 /**
  * 6. Max of 3.
  *
  * Make this function return the highest number of [n], [m] and [i]
  */
-fun maxOf3(n: Int, m: Int, i: Int): Int {
-    TODO()
-}
+fun maxOf3(n: Int, m: Int, i: Int): Int = max(n, max(m, i))
 
 /**
  * 7. Absolute bytes
@@ -74,9 +66,7 @@ fun maxOf3(n: Int, m: Int, i: Int): Int {
  * Implement a function to return the absolute bytes of the input
  * (without using the built in [Double.absoluteValue])
  */
-fun abs(value: Double): Double {
-    TODO()
-}
+fun abs(value: Double): Double = if (value >= 0) value else -value
 
 /**
  * 8. Leap Year
@@ -91,7 +81,12 @@ fun abs(value: Double): Double {
  *
  */
 fun isLeapYear(year: Int): Boolean {
-  TODO()
+    return when {
+        year.rem(4) != 0 -> false
+        year.rem(400) == 0 -> true
+        year.rem(100) == 0 -> false
+        else -> true
+    }
 }
 
 
@@ -106,5 +101,9 @@ fun isLeapYear(year: Int): Boolean {
  *
  */
 fun pace(distance: Int, minutes: Int, seconds: Int): Pair<Int, Int> {
-    TODO()
+    val km = distance / 1000.0
+    val minPerKm: Int = (minutes / km).toInt()
+    val secLefts = ( (minutes/km) - minPerKm ) * 60
+    val secPerKm = seconds/km
+    return Pair(minPerKm, secLefts.toInt() + secPerKm.toInt() )
 }

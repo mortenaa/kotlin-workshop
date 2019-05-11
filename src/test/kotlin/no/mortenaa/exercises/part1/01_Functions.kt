@@ -17,7 +17,6 @@ class FunctionsTest : StringSpec({
     }
 
     "3. use val instead of var" {
-        fail("Remove this line when you have finished the exercise")
         varAndVal("Korg", "Miek") should match("Korg and Miek")
     }
 
@@ -41,7 +40,7 @@ class FunctionsTest : StringSpec({
         maxOf3(-1, -2, 0) shouldBe 0
     }
 
-    "7. abs should return the absolute bytes" {
+    "7. abs should return the absolute value" {
         abs(10.2) shouldBe 10.2
         abs(-5.0) shouldBe 5.0
     }
