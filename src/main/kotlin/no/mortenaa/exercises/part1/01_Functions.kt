@@ -19,7 +19,7 @@ fun helloWorld(): String {
 /**
  * 2. Assignment.
  *
- * Assign a value to [a] such that the function returns 25"
+ * Assign a bytes to [a] such that the function returns 25"
  *
  */
 fun assignment(): Int {
@@ -69,9 +69,9 @@ fun maxOf3(n: Int, m: Int, i: Int): Int {
 }
 
 /**
- * 7. Absolute value
+ * 7. Absolute bytes
  *
- * Implement a function to return the absolute value of the input
+ * Implement a function to return the absolute bytes of the input
  * (without using the built in [Double.absoluteValue])
  */
 fun abs(value: Double): Double {

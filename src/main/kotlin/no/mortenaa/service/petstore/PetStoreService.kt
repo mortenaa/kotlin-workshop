@@ -1,4 +1,4 @@
-package no.mortenaa.service
+package no.mortenaa.service.petstore
 
 typealias PetId = Long
 typealias CategoryId = Long

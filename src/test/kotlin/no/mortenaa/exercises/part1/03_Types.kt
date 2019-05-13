@@ -1,13 +1,12 @@
 package no.mortenaa.exercises.part1
 
-import io.kotlintest.fail
-import io.kotlintest.matchers.match
-import io.kotlintest.should
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
 import io.mockk.every
 import io.mockk.mockk
-import no.mortenaa.service.*
+import no.mortenaa.service.petstore.Category
+import no.mortenaa.service.petstore.Pet
+import no.mortenaa.service.petstore.PetStoreService
 import java.time.Instant
 
 class TypesTest : StringSpec({

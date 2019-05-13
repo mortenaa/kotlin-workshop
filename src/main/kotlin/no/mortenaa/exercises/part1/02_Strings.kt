@@ -3,7 +3,7 @@ package no.mortenaa.exercises.part1
 /**
  * 1. StringFormat.
  *
- * Use string templates ($) to format [name] and [value] as "name=value"
+ * Use string templates ($) to format [name] and [value] as "description=bytes"
  */
 fun stringFormat(name: String, value: Number): String {
     TODO()
