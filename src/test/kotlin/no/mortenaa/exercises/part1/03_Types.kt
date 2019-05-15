@@ -16,8 +16,8 @@ class TypesTest : StringSpec({
             FIRSTNAME: Lea
             MIDDLENAME: NA
             LASTNAME: Williamson
-            OCCUPTION: Fotballer
-        """.trimIndent()
+            OCCUPATION: Footballer
+        """.trimIndent() //Feilstavelse mangler o og occupation
     }
 
     "2. petStoreTest" {

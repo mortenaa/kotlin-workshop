@@ -3,11 +3,9 @@ package no.mortenaa.exercises.part1
 /**
  * 1. StringFormat.
  *
- * Use string templates ($) to format [name] and [value] as "description=bytes"
+ * Use string templates ($) to format [name] and [value] as "description=bytes" //todo: villedende beskrivelse
  */
-fun stringFormat(name: String, value: Number): String {
-    TODO()
-}
+fun stringFormat(name: String, value: Number) = "$name=$value"
 
 /**
  * 2. Split string
@@ -23,7 +21,8 @@ fun stringFormat(name: String, value: Number): String {
  *
  */
 fun splitString(input: String): String {
-    TODO()
+    val parts = input.split(", ")
+    return "${parts[1].first().toUpperCase()}${parts[0].first().toUpperCase()}: ${parts[2]}"
 }
 
 /**
@@ -34,9 +33,7 @@ fun splitString(input: String): String {
  * [String.reversed] can be useful
  *
  */
-fun isPalindrome(s: String): Boolean {
-    TODO()
-}
+fun isPalindrome(s: String) = s == s.reversed()
 
 /**
  * 4. Json Format
@@ -46,9 +43,7 @@ fun isPalindrome(s: String): Boolean {
  *
  * HINT: Use the named arguments `prefix` and `postfix`
  */
-fun jsonFormat(list: List<Int>): String {
-    TODO()
-}
+fun jsonFormat(list: List<Int>) = list.joinToString( ", ",  "[", "]")
 
 /**
  * 5. Multiline String
@@ -62,9 +57,17 @@ fun jsonFormat(list: List<Int>): String {
  * }
  * """
  */
-fun movieToJson(title: String, year: Int, runtime: Int, rating: String = "PG-12", country: String = "USA"): String {
-    TODO()
-}
+fun movieToJson(title: String, year: Int, runtime: Int, rating: String = "PG-12", country: String = "USA") = """
+    {
+        "title": $title,
+        "year": $year,
+        "runtime": $runtime,
+        "rating": $rating,
+        "country": $country
+    }
+""".trimIndent()
+
+//todo: Denne matcher ikke pretty printing
 
 /**
  * 6. Acronym
@@ -74,6 +77,4 @@ fun movieToJson(title: String, year: Int, runtime: Int, rating: String = "PG-12"
  * Example: "application programming interface" => "API"
  *
  */
-fun acronym(title: String): String {
-    TODO()
-}
+fun acronym(title: String) = title.split(" ").map{ it.first().toUpperCase() }.joinToString("")
