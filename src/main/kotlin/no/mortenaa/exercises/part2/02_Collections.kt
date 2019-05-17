@@ -58,6 +58,11 @@ interface AppStats {
     fun mostExpensiveApp(): AppInfo
 
     /**
+     * Return the total number of reviews for all apps
+     */
+    fun totalReviews(): Long
+    
+    /**
      * Return a list of categories, ordered by average rating for the category from highest to lowest
      */
     fun categoriesOrderedByRating(): List<Category>
@@ -91,6 +96,12 @@ interface AppStats {
      * Return a Map from ContentRating => Average Rating
      */
     fun averageRatingByContentRating(): Map<ContentRating, Double>
+
+    /**
+     * Return a list of the Top [n] highest rated apps. If some apps have the same rating, order them by number of reviews
+     * The return value is a [List] of [Triple]'s with app name, rating and number of reviews
+     */
+    fun topRated(n: Int): List<Triple<String, Double, Int>>
 
     /**
      * Return a list with all apps that satisfy the given criteria. Order the list by number of reviews for each app

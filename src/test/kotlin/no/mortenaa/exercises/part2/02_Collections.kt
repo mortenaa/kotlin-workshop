@@ -7,7 +7,7 @@ import io.kotlintest.specs.StringSpec
 import no.mortenaa.data.AppInfo
 import no.mortenaa.service.playstore.parseCsv
 
-class FunctionsTest : StringSpec({
+class CollectionsTest : StringSpec({
 
     val appInfoList: List<AppInfo> = parseCsv("src/main/resources/googleplaystore.csv")
     val appStats: AppStats = AppStats.getAppStatsService(appInfoList)
