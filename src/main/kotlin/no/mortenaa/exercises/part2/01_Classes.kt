@@ -62,6 +62,6 @@ fun dataClassEquality(t1: Task, t2: Task): Boolean {
  * but with 'completed' set to 'true'. Since [Task] now is a 'data class' you should
  * be able to do this in a single line
  */
-fun copy(task: Task) {
+fun copyAndComplete(task: Task): Task {
     TODO()
 }

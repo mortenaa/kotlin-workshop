@@ -41,7 +41,7 @@ class FunctionsTest : StringSpec({
         maxOf3(-1, -2, 0) shouldBe 0
     }
 
-    "7. abs should return the absolute bytes" {
+    "7. abs should return the absolute value" {
         abs(10.2) shouldBe 10.2
         abs(-5.0) shouldBe 5.0
     }

@@ -9,6 +9,7 @@ import io.kotlintest.matchers.withClue
 import io.kotlintest.should
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldNot
+import io.kotlintest.shouldNotBe
 import io.kotlintest.specs.StringSpec
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.declaredMemberProperties
@@ -52,6 +53,43 @@ class ClassesTest : StringSpec({
         }
         val compareTo = Task::class.memberFunctions.find { it.name == "compareTo" }
         compareTo?.call(t1, t2) shouldBe -1
+    }
+
+    "4. Equality" {
+        val t1 = Task(1, "Foo", 10)
+        val t2 = Task(1, "Foo", 10)
+        val t3 = Task(2, "Foo", 10)
+        val t4 = Task(1, "Bar", 10)
+        val t5 = Task(1, "Foo", 11)
+        equality(t1, t1) shouldBe true
+        equality(t1, t2) shouldBe true
+        equality(t1, t3) shouldBe false
+        equality(t1, t4) shouldBe false
+        equality(t1, t5) shouldBe false
+    }
+
+    "5. Data class" {
+        withClue("Task is not a data class: ") { Task::class.isData shouldBe true }
+        val t1 = Task(1, "Foo", 10)
+        val t2 = Task(1, "Foo", 10)
+        val t3 = Task(2, "Foo", 10)
+        val t4 = Task(1, "Bar", 10)
+        val t5 = Task(1, "Foo", 11)
+        dataClassEquality(t1, t1) shouldBe true
+        dataClassEquality(t1, t2) shouldBe true
+        dataClassEquality(t1, t3) shouldBe false
+        dataClassEquality(t1, t4) shouldBe false
+        dataClassEquality(t1, t5) shouldBe false
+    }
+
+    "6. Copy" {
+        val completed: KProperty1<Task, Boolean>? = Task::class.declaredMemberProperties
+            .find { it.name == "completed" } as KProperty1<Task, Boolean>?
+        withClue("Task should have a property named 'completed':") { completed shouldNot beNull() }
+        withClue("Task should be a data class: ") { Task::class.isData shouldBe true }
+        val task = Task(1, "Foo", 10)
+        val copy = copyAndComplete(task)
+        withClue("The property 'completed' should be 'true':") { completed?.invoke(copy) shouldBe true }
     }
 
 })

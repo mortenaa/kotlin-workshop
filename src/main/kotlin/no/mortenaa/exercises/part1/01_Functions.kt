@@ -69,9 +69,9 @@ fun maxOf3(n: Int, m: Int, i: Int): Int {
 }
 
 /**
- * 7. Absolute bytes
+ * 7. Absolute value
  *
- * Implement a function to return the absolute bytes of the input
+ * Implement a function to return the absolute value of the input
  * (without using the built in [Double.absoluteValue])
  */
 fun abs(value: Double): Double {
