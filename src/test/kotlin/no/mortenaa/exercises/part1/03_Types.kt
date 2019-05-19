@@ -16,7 +16,7 @@ class TypesTest : StringSpec({
             FIRSTNAME: Lea
             MIDDLENAME: NA
             LASTNAME: Williamson
-            OCCUPTION: Fotballer
+            OCCUPATION: Footballer
         """.trimIndent()
     }
 

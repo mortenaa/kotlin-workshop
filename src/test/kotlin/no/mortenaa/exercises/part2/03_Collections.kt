@@ -48,7 +48,7 @@ class CollectionsTest : StringSpec({
 
     "6. total number of reviews" {
         val appStats: AppStats = AppStats.getAppStatsService(appInfoList)
-        appStats.totalReviews() shouldBe TODO()
+        appStats.totalReviews() shouldBe 4817617393L
     }
 
     "7. Categories sorted by average price in the category" {
@@ -87,7 +87,7 @@ class CollectionsTest : StringSpec({
     "12. ContentRating map" {
         val appStats: AppStats = AppStats.getAppStatsService(appInfoList)
         val groups = appStats.groupByContentRating()
-        groups.size shouldBe 7
+        groups.size shouldBe 6
         groups[ContentRating.EVERYONE]?.size shouldBe 8714
         val appInfo = appInfoList.find { it.contentRating == ContentRating.TEEN }
         groups[ContentRating.TEEN]!! shouldContain appInfo
@@ -96,7 +96,7 @@ class CollectionsTest : StringSpec({
     "13. ContentRating Average" {
         val appStats: AppStats = AppStats.getAppStatsService(appInfoList)
         val contentRatingMap = appStats.averageRatingByContentRating()
-        contentRatingMap.size shouldBe 7
+        contentRatingMap.size shouldBe 6
         contentRatingMap[ContentRating.ADULTS_18] shouldBe(4.3).plusOrMinus(0.01)
         contentRatingMap[ContentRating.UNRATED] shouldBe(4.1).plusOrMinus(0.01)
     }

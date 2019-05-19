@@ -29,8 +29,8 @@ class StringsTest : StringSpec({
 
 
     "5. movieToJson Test" {
-        val strippedJson = movieToJson("Avengers: Endgame", 2019, 181).replace("\\s", "")
-        strippedJson shouldBe """{"title":"Avengers: Endgame","year",2019,"runtime":181,"rating":"PG-12","country":"USA"}"""
+        val strippedJson = movieToJson("Avengers: Endgame", 2019, 181).filter { !it.isWhitespace() }
+        strippedJson shouldBe """{"title":"Avengers:Endgame","year":2019,"runtime":181,"rating":"PG-12","country":"USA"}"""
     }
 
     "6. acronym Test" {
