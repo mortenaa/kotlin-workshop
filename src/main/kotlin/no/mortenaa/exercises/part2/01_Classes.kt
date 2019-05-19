@@ -1,6 +1,10 @@
 package no.mortenaa.exercises.part2
 
-class Task(val id: Long, val description: String, val priority: Int)
+data class Task(val id: Long, val description: String, val priority: Int, val completed: Boolean = false): Comparable<Task> {
+    override fun compareTo(other: Task): Int {
+        return priority.compareTo(other.priority)
+    }
+}
 
 /**
  * 1. Create an Instance.
@@ -8,7 +12,7 @@ class Task(val id: Long, val description: String, val priority: Int)
  * Return an instance of the [Task] class with id 100, description "Buy milk", and priority 1
  */
 fun taskInstanse(): Task {
-    TODO()
+    return Task(100, "Buy milk", 1)
 }
 
 /**
@@ -19,7 +23,7 @@ fun taskInstanse(): Task {
  *
  */
 fun completedTask(): Task {
-    TODO()
+    return Task(101, "Buy ticket", 10, true)
 }
 
 /**
@@ -30,7 +34,7 @@ fun completedTask(): Task {
  * Then return the result of calling t1.compareTo(2) from this function
  */
 fun comparable(t1: Task, t2: Task): Int {
-    TODO()
+    return t1.compareTo(t2)
 }
 
 /**
@@ -40,7 +44,10 @@ fun comparable(t1: Task, t2: Task): Int {
  * are equals. Does comparing the instances with '==' work?
  */
 fun equality(t1: Task, t2: Task): Boolean {
-    TODO()
+    return t1.id == t2.id
+            && t1.description == t2.description
+            && t1.priority == t2.priority
+            && t1.completed == t2.completed
 }
 
 /**
@@ -52,7 +59,7 @@ fun equality(t1: Task, t2: Task): Boolean {
  *
  */
 fun dataClassEquality(t1: Task, t2: Task): Boolean {
-    TODO()
+    return t1 == t2
 }
 
 /**
@@ -63,5 +70,5 @@ fun dataClassEquality(t1: Task, t2: Task): Boolean {
  * be able to do this in a single line
  */
 fun copyAndComplete(task: Task): Task {
-    TODO()
+    return task.copy(completed = true)
 }

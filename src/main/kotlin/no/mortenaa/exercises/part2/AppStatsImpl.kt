@@ -7,6 +7,10 @@ import no.mortenaa.data.Genre
 import java.lang.RuntimeException
 
 class AppStatsImpl(val appInfoList: List<AppInfo>) : AppStats {
+    override fun totalReviews(): Long {
+        return appInfoList.map { it.reviews.toLong() }.sum()
+    }
+
     override fun ratedApps(): Int {
         return appInfoList.count { it.rating != null }
     }
@@ -90,12 +94,23 @@ class AppStatsImpl(val appInfoList: List<AppInfo>) : AppStats {
             .mapValues { averageRating(it.value) }
     }
 
+    override fun topRated(n: Int): List<Triple<String, Double, Int>> {
+        return appInfoList
+            .filter { it.rating != null }
+            .sortedWith(compareByDescending<AppInfo> { it.rating!!.stars }
+                .then(compareByDescending { it.reviews }))
+            .map { Triple(it.name, it.rating!!.stars, it.reviews) }
+            .take(n)
+
+    }
+
     override fun findApps(minRating: Double, maxPrice: Double, category: Category?, genre: Genre?): List<AppInfo> {
         return appInfoList
-            .filter { it.rating?.stars?:Double.MIN_VALUE >= minRating }
+            .filter { it.rating?.stars ?: Double.MIN_VALUE >= minRating }
             .filter { it.price.dollars <= maxPrice }
             .filter { category == null || (category == it.category) }
             .filter { genre == null || it.genres.contains(genre) }
+            .sortedByDescending { it.reviews }
     }
 }
 

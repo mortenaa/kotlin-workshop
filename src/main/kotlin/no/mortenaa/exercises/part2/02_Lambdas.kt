@@ -8,7 +8,7 @@ package no.mortenaa.exercises.part2
  * Use this with a lambda to return the input String with all lower case characters removed.
  */
 fun filterUpperCase(s: String): String {
-    TODO()
+    return s.filter { !it.isLowerCase() }
 }
 
 /**
@@ -19,7 +19,7 @@ fun filterUpperCase(s: String): String {
  * Use it to count the number of occurrences of the Char [c] in the String [s]
  */
 fun letterCount(s: String, c: Char): Int {
-    TODO()
+    return s.count { it == c }
 }
 
 /**
@@ -29,7 +29,7 @@ fun letterCount(s: String, c: Char): Int {
  * otherwise 0
  */
 fun oneOrZero(int: Int, lambda: (Int) -> Boolean): Int {
-    TODO()
+    return if (lambda(int)) 1 else 0
 }
 
 /**
@@ -39,7 +39,7 @@ fun oneOrZero(int: Int, lambda: (Int) -> Boolean): Int {
  * the two ints.
  */
 fun intOperation(i1: Int, i2: Int, operation: (Int, Int) -> Int): Int {
-    TODO()
+    return operation(i1, i2)
 }
 
 /**
@@ -49,5 +49,5 @@ fun intOperation(i1: Int, i2: Int, operation: (Int, Int) -> Int): Int {
  * which given a string return a new string where the input is surrounded by prefix and postfix
  */
 fun surroundString(prefix: String, postfix: String): (String) -> String {
-    TODO()
+    return { prefix + it + postfix }
 }

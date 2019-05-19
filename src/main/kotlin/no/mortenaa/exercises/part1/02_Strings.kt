@@ -59,15 +59,13 @@ fun jsonFormat(list: List<Int>) = list.joinToString( ", ",  "[", "]")
  */
 fun movieToJson(title: String, year: Int, runtime: Int, rating: String = "PG-12", country: String = "USA") = """
     {
-        "title": $title,
+        "title": "$title",
         "year": $year,
         "runtime": $runtime,
-        "rating": $rating,
-        "country": $country
+        "rating": "$rating",
+        "country": "$country"
     }
 """.trimIndent()
-
-//todo: Denne matcher ikke pretty printing
 
 /**
  * 6. Acronym

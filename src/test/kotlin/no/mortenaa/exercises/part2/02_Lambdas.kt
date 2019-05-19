@@ -34,7 +34,9 @@ class LambdaTest : StringSpec({
     "3. One or Zero" {
         oneOrZero(10) { true } shouldBe 1
         oneOrZero(10) { false } shouldBe 0
-        oneOrZero(5) { it.rem(2) == 0 } shouldBe 1
+        oneOrZero(5) { it.rem(2) == 1 } shouldBe 1
+        oneOrZero(5) { it.rem(2) == 0 } shouldBe 0
+        oneOrZero(4) { it.rem(2) == 0 } shouldBe 1
         oneOrZero(4) { it.rem(2) == 1 } shouldBe 0
     }
 
