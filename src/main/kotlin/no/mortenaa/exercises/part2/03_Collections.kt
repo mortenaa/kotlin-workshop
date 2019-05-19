@@ -4,7 +4,7 @@ import no.mortenaa.data.AppInfo
 import no.mortenaa.data.Category
 import no.mortenaa.data.ContentRating
 import no.mortenaa.data.Genre
-
+//todo: Si veldig tydelig at de skal lage en klasse, hvor de skal lage en classe og at denskal implementere interfacet
 /**
  *
  * These exercises use the data classes and enums defines in [AppInfo]
@@ -42,7 +42,7 @@ interface AppStats {
      */
     companion object {
         fun getAppStatsService(appInfoList: List<AppInfo>): AppStats {
-            TODO("Return your implementation of the AppStats interface here")
+            return AppStatsImpl(appInfoList)
         }
     }
 

@@ -1,5 +1,6 @@
 package no.mortenaa.exercises.part1
 
+import no.mortenaa.service.petstore.Pet
 import no.mortenaa.service.petstore.PetId
 import no.mortenaa.service.petstore.PetStoreService
 
@@ -18,7 +19,12 @@ import no.mortenaa.service.petstore.PetStoreService
  *
  */
 fun nullable(firstName: String, middleName: String?, lastName: String, occupation: String?): String {
-    TODO()
+    return """
+        FIRSTNAME: ${firstName.capitalize()}
+        MIDDLENAME: ${middleName?.capitalize() ?: "NA"}
+        LASTNAME: ${lastName.capitalize()}
+        OCCUPATION: ${occupation?.capitalize() ?: "NA"}
+    """.trimIndent()
 }
 
 /**
@@ -28,10 +34,10 @@ fun nullable(firstName: String, middleName: String?, lastName: String, occupatio
  *
  */
 fun findPetAndCategoryName(petStoreService: PetStoreService, petId: PetId): Pair<String, String>? {
-    val pet = petStoreService.findById(petId)
-    //return Pair(pet.description, pet.category.description)
-    TODO()
+    val pet: Pet? = petStoreService.findById(petId)
+    return Pair(pet?.name ?: "NA", pet?.category?.name ?: "NA")
 }
+//todo: hva skal returnerer i firste element? description not an element
 
 /**
  * 3. When expression and Smart Cast
@@ -46,5 +52,12 @@ fun findPetAndCategoryName(petStoreService: PetStoreService, petId: PetId): Pair
  *
  */
 fun mysteryInput(input: Any?): Any? {
-    TODO()
+    return when {
+        input is String -> input.first()
+        input is Int && input.rem(2) == 0 -> input / 2
+        input is Int -> 1
+        input is Double && input >= 0 -> 0
+        input is Double -> -1
+        else -> null
+    }
 }
