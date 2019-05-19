@@ -2,6 +2,8 @@
 
 Kotlin Workshop for [javaBin Bergen - May 23, 2019](https://www.meetup.com/javaBin-Bergen/events/258680498/)
 
+*By [Morten N. Åsnes](https://github.com/mortenaa) and [Bjørn Hamre](https://github.com/javaguruen)*
+
 This is an introductory hands on workshop about programming in Kotlin. 
 We will start with basic Kotlin syntax and work our way up to more advances topics with a mix
 of presentations and hands-on exercises for the participants. 
