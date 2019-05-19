@@ -17,8 +17,7 @@ class AppStatsImpl(val appInfoList: List<AppInfo>) : AppStats {
 
     override fun averageRating(): Double {
         return appInfoList
-            .map { it.rating }
-            .filterNotNull()
+            .mapNotNull { it.rating }
             .map { it.stars }
             .average()
     }
@@ -26,8 +25,7 @@ class AppStatsImpl(val appInfoList: List<AppInfo>) : AppStats {
     override fun averageRating(category: Category): Double {
         return appInfoList
             .filter { category == it.category }
-            .map { it.rating }
-            .filterNotNull()
+            .mapNotNull { it.rating }
             .map { it.stars }
             .average()
     }
@@ -36,13 +34,10 @@ class AppStatsImpl(val appInfoList: List<AppInfo>) : AppStats {
         return appInfoList.maxBy { it.price.dollars } ?: throw RuntimeException("No apps in store")
     }
 
-    //todo: må vi force !! her?
     override fun categoriesOrderedByRating(): List<Category> {
-        return appInfoList.filter { it.category != null }
-            .groupBy { it.category }
-            .map { it.key to averageRating(it.key!!)}
-            .sortedByDescending { it.second }
-            .map { it.first!! }
+        return appInfoList
+            .mapNotNull { it.category }
+            .sortedByDescending { averageRating(it) }
     }
 
     override fun categoriesOrderedByNumberOfApps(): List<Pair<Category, Int>> = appInfoList

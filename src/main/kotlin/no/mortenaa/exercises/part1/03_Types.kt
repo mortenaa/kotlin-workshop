@@ -37,7 +37,6 @@ fun findPetAndCategoryName(petStoreService: PetStoreService, petId: PetId): Pair
     val pet: Pet? = petStoreService.findById(petId)
     return Pair(pet?.name ?: "NA", pet?.category?.name ?: "NA")
 }
-//todo: hva skal returnerer i firste element? description not an element
 
 /**
  * 3. When expression and Smart Cast
