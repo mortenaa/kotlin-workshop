@@ -7,13 +7,13 @@
 # Program
 
  - Part 1 - Syntax / Functions / Types
-    - 40 min. introduction
-    - 40 min. exercises
+    - 25 min. introduction
+    - 35 min. exercises
     - 10 min. solutions
  - Part 2 - Classes / Objects / Collection
-    - 30 min. theory
-    - 40 min. exercises
-    - 10 min. solutions 
+    - 50 min. theory
+    - 45 min. exercises
+    - 15 min. solutions 
 ---
 
 ## About Kotlin
@@ -38,9 +38,10 @@
  - Better support for immutability
  - Null safe
 
----
 Note:
 Popular on android. Supported by Google.
+
+---
 
 ## Kotlin compiles to 
  - Jvm
@@ -212,6 +213,17 @@ val defaultIfNull: String = middleName?.toUpperCase()?:""
 
 ---
 
+## !! operator
+ - The not-null assertion operator
+ - !! converts any value to a non-null type
+ - Throws an exception if the value is null. 
+ 
+```kotlin
+val l = b!!.length
+```
+
+---
+
 ## Smart cast
  - Any is the super class of all classes
  - No need to cast after type is asserted
@@ -297,6 +309,32 @@ val value = try {
 ## Classes
 ...and friends
 
+## A Java example
+```java
+public class Person {
+    private final String firstName;
+    private String lastName;
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+}
+```
+
+Note:
+- Two fields
+- One final, one mutable
+- Constructor
+- Getter and setter
 ---
 ## Classes
  - Primary constructor
@@ -367,7 +405,8 @@ Note:
 
 ```kotlin
 open class Person(val name: String)
-class IdentifiablePerson(val ssn: String, name: String) : Person(name)
+class IdentifiablePerson(val ssn: String, name: String) 
+    : Person(name)
 
 val citizen = IdentifiablePerson("01017012345", "Bjørn")
 println("Name: ${citizen.name}, ssn: ${citizen.ssn}")
@@ -526,23 +565,34 @@ val average = highSalaries.average()
 ## Reduce a collection
 - reduce/reduceRight
    - Starts with first two elements
-- fold/foldRight
-   - Requires initial value
-   - Starts with initial value and first element
-   - Can be applied to empty collections
+   - Reduces to the same type
 
 ```kotlin
-val sumReducedRight = employees.map { it.salary }
-    .reduceRight(Long::plus)
 val sumReduced = employees.map { it.salary }
     .reduce{ it, sum -> sum + it}
 
-val sumFoldedRight = employees.map { it.salary }
-    .foldRight(0L, Long::plus)
-val sumFolded = employees.map { it.salary }
-    .foldRight(0L){ it, sum -> it + sum }
+val sumReducedRight = employees.map { it.salary }
+    .reduceRight(Long::plus)
 ```
 
+Note:
+- Direction is different.
+- Reduces from List of Long to Long 
+---
+
+## Fold a collection
+- fold/foldRight
+   - Starts with an initial value and first element
+   - Can be applied to empty collections
+
+```kotlin
+employees.foldRight(0L){ it, sum -> it.salary + sum }
+
+employees.fold(0L){ sum, it -> it.salary + sum }
+```
+
+Note:
+- Fold works on Long and Employee
 ---
 
 ## Lambdas
@@ -585,11 +635,12 @@ println("2 x 4 = ${doubler(4)}")
 ---
 
 ## Tuples/Pair
- - `to`
+ - `to` / Pair
  - destructuring
 
 ```kotlin
 val tuple = 42 to "The meaning"
+val pair = Pair(42, "The meaning")
 val theSecret = tuple.first
 
 val (secret, message) = tuple
@@ -609,6 +660,10 @@ val (na, _, occ) = bjorn
 
 ---
 
+# Exercises
+
+
+---
 # Part 3
 
 
