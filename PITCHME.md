@@ -69,9 +69,10 @@ Popular on android. Supported by Google.
  - ~~Long[]~~, `Array<Long>`
  - Any, Unit, Nothing
 
----
 Note:
 Not primitive types. Basic types are compiled to native Jvm types where possible.
+
+---
 
 ## Variables/Values
 var, val, type inference, == and no ';'
@@ -90,6 +91,7 @@ println("Value" === finalName) // java: ==
 ```
 
 Note:
+
 Semicolons are optional, but are by convention only used to separate multiple statements on the same line.
 
 ---
@@ -110,9 +112,10 @@ val multiLineString = """
 """.trimIndent()
 ```
 
----
 Note:
 $ is used for single variables, ${} evaluating expressions
+
+---
 
 ## Functions/methods 
  - fun keyword
@@ -308,6 +311,8 @@ val value = try {
 # Part 2
 ## Classes
 ...and friends
+
+---
 
 ## A Java example
 ```java
@@ -616,7 +621,8 @@ val name = concatenator("First", "Last")
 - Use separate block when calling
 
 ```kotlin
-fun intOperator(v1: Int, v2: Int, operation: (Int, Int) -> Int ): Int = operation(v1, v2)
+fun intOperator(v1: Int, v2: Int, op: (Int, Int) -> Int ): Int 
+    = op(v1, v2)
 val sum = intOperator(2, 3) { n1, n2 -> n1 + n2 }
 val sum2 = intOperator(2, 3, Int::plus)
 ```
@@ -653,7 +659,9 @@ val (secret, message) = tuple
 - Order is important
 
 ```kotlin
-data class Person(val name: String, val age: Int, val occupation: String)
+data class Person(val name: String, 
+                  val age: Int, 
+                  val occupation: String)
 val bjorn = Person("Bjørn", 46, "Programmer")
 val (na, _, occ) = bjorn
 ```
