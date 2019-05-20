@@ -64,6 +64,7 @@ interface AppStats {
      * 4. Average Rating for Category
      *
      * The average rating for all apps in a single category
+     * (excluding apps without rating)
      */
     fun averageRating(category: Category): Double
 
@@ -85,6 +86,7 @@ interface AppStats {
      * 7. Categories ordered by rating
      *
      * Return a list of categories, ordered by average rating for the category from highest to lowest
+     * (excluding apps without rating when calculating average rating)
      */
     fun categoriesOrderedByRating(): List<Category>
 
@@ -141,6 +143,7 @@ interface AppStats {
      * 15. Find Apps by criteria
      *
      * Return a list with all apps that satisfy the given criteria. Order the list by number of reviews for each app
+     * (with regards to minRating a missing rating should be considered as 0 stars)
      */
     fun findApps(minRating: Double, maxPrice: Double, category: Category? = null, genre: Genre? = null): List<AppInfo>
 }
