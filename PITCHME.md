@@ -21,7 +21,13 @@
  - New programming language
  - Developed by Jetbrains
  - Inspired (a lot) by Scala, Groovy and others
- 
+
+Note:
+Lansert i 2011
+v1.0 regnet som første stabile release kom i 2016
+Introdusert som et alternativ til Java.
+Objekt orientert og funksjonelt
+
 --- 
  
 ## Resources
@@ -39,7 +45,9 @@
  - Null safe
 
 Note:
+Mer konsist
 Popular on android. Supported by Google.
+Siden mai 2019 det foretrukne språket på Android
 
 ---
 
@@ -114,6 +122,7 @@ val multiLineString = """
 
 Note:
 $ is used for single variables, ${} evaluating expressions
+raw string kan inneholde spesialteng uten escaping. også nyttig for regexp.
 
 ---
 
@@ -211,7 +220,7 @@ To be used in "train wrecks"
 ```kotlin
 val middleName: String? = null
 val upperMiddleName: String? = middleName?.toUpperCase()
-val defaultIfNull: String = middleName?.toUpperCase()?:""
+val defaultIfNull: String = middleName?.toUpperCase() ?: ""
 ```
 
 ---
@@ -238,6 +247,8 @@ if (something is String) {
 }
 
 ```
+Note:
+is = instanceof
 
 ---
 
