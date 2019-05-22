@@ -29,7 +29,7 @@ fun nullable(firstName: String, middleName: String?, lastName: String, occupatio
  */
 fun findPetAndCategoryName(petStoreService: PetStoreService, petId: PetId): Pair<String, String>? {
     val pet = petStoreService.findById(petId)
-    //return Pair(pet.description, pet.category.description)
+    //return Pair(pet.name, pet.category.name)
     TODO()
 }
 
