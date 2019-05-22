@@ -3,6 +3,16 @@
 ## Bjørn Hamre
 
 ---
+#Clone eller last ned kildekode fra Github
+## https://github.com/mortenaa/kotlin-workshop
+
+# Wifi
+* Koble til GCR-Gjest
+* Åpne nettleser
+* Skriv inn fornavn, etternavn og mobilnummer
+  (Husk +47 forran nummer)
+* Skriv inn koden du får på SMS
+---
 
 # Program
 
