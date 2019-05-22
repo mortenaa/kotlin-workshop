@@ -2,6 +2,8 @@
 ## Morten Nygaard Åsnes 
 ## Bjørn Hamre
 
+Note:
+Morten Begynner her
 ---
 ## Clone eller last ned kildekode fra Github
 * https://github.com/mortenaa/kotlin-workshop
@@ -276,6 +278,8 @@ when (surprise) {
 ```
 But 'var' isn't functional !
 
+Note:
+Bjørn tar over fom. denne sliden
 ---
 
 ## Pattern to avoid var
@@ -333,6 +337,7 @@ val value = try {
 ## Classes
 ...and friends
 
+Note: Bjørn fortsetter her...
 ---
 
 ## A Java example
@@ -527,6 +532,11 @@ println(list) //[Bjørn, Erik, Thomas]
 println(modifiedList) //[Bjørn, Erik, Thomas, The Bear]
 ```
 
+Note:
+Morten tar over fom. denne sliden
+Collections i Kotlin er Java stdlib collections, med
+utvidelser og tillegsfunksjoner som gjør de lettere å jobbe med.
+Kan utveksle kollections mellom java og kotlin kode uten noe konvertering
 ---
 
 ## Collections
@@ -544,6 +554,9 @@ println(mmap)
 Note:
 //todo: .toMutable
 //ikke immutable i bytekode/java
+Kompilatoren overholder at man ikke modifiserer en immutable collection,
+men siden det er en java collection "bak" som er mutable, er det ingen garantier
+for at den ikke kan endres.
 ---
 
 ## Accessing elements
@@ -562,6 +575,9 @@ val mutableFruits = moreFruits.toMutableList()
 mutableFruits.add("Kiwi")
 ```
 
+Note:
+.get notasjonen er nyttig hvis val som holder collection er nullable,
+da kan man bruke collection?.get(i) men ikke collection[i]
 ---
 
 ## Filter and Map collections
@@ -585,7 +601,7 @@ val highSalaries: List<Long> =
 val average = highSalaries.average()
 
 ```
-
+Note: Vi kommer tilbake til syntax for lambda utrykk
 ---
 
 ## Reduce a collection
@@ -595,7 +611,7 @@ val average = highSalaries.average()
 
 ```kotlin
 val sumReduced = employees.map { it.salary }
-    .reduce{ it, sum -> sum + it}
+    .reduce { it, sum -> sum + it }
 
 val sumReducedRight = employees.map { it.salary }
     .reduceRight(Long::plus)
@@ -612,13 +628,15 @@ Note:
    - Can be applied to empty collections
 
 ```kotlin
-employees.foldRight(0L){ it, sum -> it.salary + sum }
+employees.foldRight(0L) { it, sum -> it.salary + sum }
 
-employees.fold(0L){ sum, it -> it.salary + sum }
+employees.fold(0L) { sum, it -> it.salary + sum }
 ```
 
 Note:
-- Fold works on Long and Employee
+- Fold works on Long and Employee (forskjellige typer, går ikke med reduce)
+- Fold tar 2 argument, initial value og lambda. lambda som siste argument kan stå
+utenfor parantesene
 ---
 
 ## Lambdas
@@ -672,6 +690,9 @@ val theSecret = tuple.first
 
 val (secret, message) = tuple
 ```
+
+Note:
+- to er en infix funksjon som returnerer et Pair
 ---
 
 ## Data class is tuple
@@ -686,7 +707,10 @@ data class Person(val name: String,
 val bjorn = Person("Bjørn", 46, "Programmer")
 val (na, _, occ) = bjorn
 ```
-
+Note:
+- destucturing virker for klasser som implementerer component1, component2...
+- lister implementerer component1..5
+- data classer for alle properties
 ---
 
 # Exercises
