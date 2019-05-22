@@ -3,10 +3,10 @@
 ## Bjørn Hamre
 
 ---
-#Clone eller last ned kildekode fra Github
-## https://github.com/mortenaa/kotlin-workshop
+## Clone eller last ned kildekode fra Github
+* https://github.com/mortenaa/kotlin-workshop
 
-# Wifi
+## Wifi
 * Koble til GCR-Gjest
 * Åpne nettleser
 * Skriv inn fornavn, etternavn og mobilnummer
