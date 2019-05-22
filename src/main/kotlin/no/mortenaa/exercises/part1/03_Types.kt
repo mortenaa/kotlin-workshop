@@ -38,7 +38,7 @@ fun findPetAndCategoryName(petStoreService: PetStoreService, petId: PetId): Pair
  *
  * This function should decide what type the input is, and return
  *  the first character if it is a String
- *  the bytes / 2 if it's an even Int
+ *  the value / 2 if it's an even Int
  *  1 if it's an odd Int
  *  0 if it's a Double greater or equal to 0
  *  -1 if it's a Double less than 0

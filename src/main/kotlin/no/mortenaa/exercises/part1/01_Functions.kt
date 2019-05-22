@@ -19,7 +19,7 @@ fun helloWorld(): String {
 /**
  * 2. Assignment.
  *
- * Assign a bytes to [a] such that the function returns 25"
+ * Assign a value to [a] such that the function returns 25"
  *
  */
 fun assignment(): Int {
