@@ -333,6 +333,10 @@ val value = try {
 ```
 ---
 
+# Exercises - Part 1
+
+---
+
 # Part 2
 ## Classes
 ...and friends
@@ -713,7 +717,7 @@ Note:
 - data classer for alle properties
 ---
 
-# Exercises
+# Exercises - Part 2
 
 
 ---
