@@ -365,7 +365,7 @@ Note:
 Note: Bjørn fortsetter her...
 ---
 
-#### A Java example
+### A Java example
 ```java
 public class Person {
     private final String firstName;
