@@ -280,6 +280,11 @@ But 'var' isn't functional !
 
 Note:
 Bjørn tar over fom. denne sliden
+- brukes hvor en ellers ville brukt switch, else if
+- smart casting
+- sjekk type og verdi på variabel
+- tilordning inne i when -> må være var
+- prøv alltid å bruke val
 ---
 
 ## Pattern to avoid var
@@ -296,6 +301,8 @@ val whatIsIt: String = when (surprise) {
     else      -> "Whatever"
 }
 ```
+Note:
+- result from when assigned directly -> val
 
 ---
 ## When without arguments
@@ -308,6 +315,8 @@ val result = when {
     else -> -1
 }
 ``` 
+Note: 
+- can have more complex expressions
 ---
 
 ## Pattern to avoid var
@@ -331,6 +340,9 @@ val value = try {
     "Not a string"
 }
 ```
+
+Note:
+- as is casting
 ---
 
 # Exercises - Part 1
@@ -386,6 +398,7 @@ println(bjorn.firstName)
 bjorn.lastName = "Something Else"
 ```
 Note:
+- LastName is var
 - From Kotlin code, uses property name
    - In byte code -> generated as get set
    - Boilerplate removed for ease of reading
@@ -405,7 +418,8 @@ public final class no.hamre.Classes$Person {
 }
 
 ```
-
+Note:
+- Firstname val -> only getter()
 ---
 
 ## Nice class features
@@ -429,6 +443,7 @@ println(defaultMiddleName.fullName()) //> Bjørn Hamre
 println(namedArguments.fullName())    //> Bjørn Håkonsen Hamre
 ```
 Note:
+- Default values -> fewer constructors
 - Put default values at the end of the signature
 - When using named arguments to the constructor it looks a lot like a builder
 
@@ -449,15 +464,11 @@ println("Name: ${citizen.name}, ssn: ${citizen.ssn}")
 ```
 Note:
  - Classes are closed by default
- - Eksempel til senere hvis vi skal vise get() og fields
-open class Person(val name: String)
-class IdentifiablePerson(_ssn: String, name: String) : Person(name){
-    val ssn: String = _ssn
-        get() = "${field.substring(0, 6)}*****"
-}
-
-val citizen = IdentifiablePerson("01017012345", "Bjørn")
-println("Name: ${citizen.name}, ssn: ${citizen.ssn}")
+ - Also:
+    - private
+    - protected
+    - internal
+    - sealed
 
 ---
 
@@ -523,6 +534,10 @@ enum class Color(val rgb: Int) {
 }
 Color.RED.rgb
 ```
+Note:
+- properties much simpler than java
+  - no constructor
+  - no getters
 ---
 ## Collections
  - immutable "by default"
