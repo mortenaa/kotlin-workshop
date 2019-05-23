@@ -2,18 +2,30 @@
 ## Morten Nygaard Åsnes 
 ## Bjørn Hamre
 
+Note:
+Morten Begynner her
+---
+## Clone eller last ned kildekode fra Github
+* https://github.com/mortenaa/kotlin-workshop
+
+## Wifi
+* Koble til GCR-Gjest
+* Åpne nettleser
+* Skriv inn fornavn, etternavn og mobilnummer
+  (Husk +47 forran nummer)
+* Skriv inn koden du får på SMS
 ---
 
 # Program
 
  - Part 1 - Syntax / Functions / Types
-    - 40 min. introduction
-    - 40 min. exercises
+    - 25 min. introduction
+    - 35 min. exercises
     - 10 min. solutions
  - Part 2 - Classes / Objects / Collection
-    - 30 min. theory
-    - 40 min. exercises
-    - 10 min. solutions 
+    - 50 min. theory
+    - 45 min. exercises
+    - 15 min. solutions 
 ---
 
 ## About Kotlin
@@ -21,7 +33,13 @@
  - New programming language
  - Developed by Jetbrains
  - Inspired (a lot) by Scala, Groovy and others
- 
+
+Note:
+Lansert i 2011
+v1.0 regnet som første stabile release kom i 2016
+Introdusert som et alternativ til Java.
+Objekt orientert og funksjonelt
+
 --- 
  
 ## Resources
@@ -38,9 +56,12 @@
  - Better support for immutability
  - Null safe
 
----
 Note:
+Mer konsist
 Popular on android. Supported by Google.
+Siden mai 2019 det foretrukne språket på Android
+
+---
 
 ## Kotlin compiles to 
  - Jvm
@@ -68,9 +89,10 @@ Popular on android. Supported by Google.
  - ~~Long[]~~, `Array<Long>`
  - Any, Unit, Nothing
 
----
 Note:
 Not primitive types. Basic types are compiled to native Jvm types where possible.
+
+---
 
 ## Variables/Values
 var, val, type inference, == and no ';'
@@ -89,6 +111,7 @@ println("Value" === finalName) // java: ==
 ```
 
 Note:
+
 Semicolons are optional, but are by convention only used to separate multiple statements on the same line.
 
 ---
@@ -109,9 +132,11 @@ val multiLineString = """
 """.trimIndent()
 ```
 
----
 Note:
 $ is used for single variables, ${} evaluating expressions
+raw string kan inneholde spesialteng uten escaping. også nyttig for regexp.
+
+---
 
 ## Functions/methods 
  - fun keyword
@@ -207,7 +232,18 @@ To be used in "train wrecks"
 ```kotlin
 val middleName: String? = null
 val upperMiddleName: String? = middleName?.toUpperCase()
-val defaultIfNull: String = middleName?.toUpperCase()?:""
+val defaultIfNull: String = middleName?.toUpperCase() ?: ""
+```
+
+---
+
+## !! operator
+ - The not-null assertion operator
+ - !! converts any value to a non-null type
+ - Throws an exception if the value is null. 
+ 
+```kotlin
+val l = b!!.length
 ```
 
 ---
@@ -223,6 +259,8 @@ if (something is String) {
 }
 
 ```
+Note:
+is = instanceof
 
 ---
 
@@ -240,6 +278,8 @@ when (surprise) {
 ```
 But 'var' isn't functional !
 
+Note:
+Bjørn tar over fom. denne sliden
 ---
 
 ## Pattern to avoid var
@@ -293,10 +333,43 @@ val value = try {
 ```
 ---
 
+# Exercises - Part 1
+
+---
+
 # Part 2
 ## Classes
 ...and friends
 
+Note: Bjørn fortsetter her...
+---
+
+## A Java example
+```java
+public class Person {
+    private final String firstName;
+    private String lastName;
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+}
+```
+
+Note:
+- Two fields
+- One final, one mutable
+- Constructor
+- Getter and setter
 ---
 ## Classes
  - Primary constructor
@@ -367,7 +440,8 @@ Note:
 
 ```kotlin
 open class Person(val name: String)
-class IdentifiablePerson(val ssn: String, name: String) : Person(name)
+class IdentifiablePerson(val ssn: String, name: String) 
+    : Person(name)
 
 val citizen = IdentifiablePerson("01017012345", "Bjørn")
 println("Name: ${citizen.name}, ssn: ${citizen.ssn}")
@@ -462,6 +536,11 @@ println(list) //[Bjørn, Erik, Thomas]
 println(modifiedList) //[Bjørn, Erik, Thomas, The Bear]
 ```
 
+Note:
+Morten tar over fom. denne sliden
+Collections i Kotlin er Java stdlib collections, med
+utvidelser og tillegsfunksjoner som gjør de lettere å jobbe med.
+Kan utveksle kollections mellom java og kotlin kode uten noe konvertering
 ---
 
 ## Collections
@@ -479,6 +558,9 @@ println(mmap)
 Note:
 //todo: .toMutable
 //ikke immutable i bytekode/java
+Kompilatoren overholder at man ikke modifiserer en immutable collection,
+men siden det er en java collection "bak" som er mutable, er det ingen garantier
+for at den ikke kan endres.
 ---
 
 ## Accessing elements
@@ -497,6 +579,9 @@ val mutableFruits = moreFruits.toMutableList()
 mutableFruits.add("Kiwi")
 ```
 
+Note:
+.get notasjonen er nyttig hvis val som holder collection er nullable,
+da kan man bruke collection?.get(i) men ikke collection[i]
 ---
 
 ## Filter and Map collections
@@ -520,29 +605,42 @@ val highSalaries: List<Long> =
 val average = highSalaries.average()
 
 ```
-
+Note: Vi kommer tilbake til syntax for lambda utrykk
 ---
 
 ## Reduce a collection
 - reduce/reduceRight
    - Starts with first two elements
+   - Reduces to the same type
+
+```kotlin
+val sumReduced = employees.map { it.salary }
+    .reduce { it, sum -> sum + it }
+
+val sumReducedRight = employees.map { it.salary }
+    .reduceRight(Long::plus)
+```
+
+Note:
+- Direction is different.
+- Reduces from List of Long to Long 
+---
+
+## Fold a collection
 - fold/foldRight
-   - Requires initial value
-   - Starts with initial value and first element
+   - Starts with an initial value and first element
    - Can be applied to empty collections
 
 ```kotlin
-val sumReducedRight = employees.map { it.salary }
-    .reduceRight(Long::plus)
-val sumReduced = employees.map { it.salary }
-    .reduce{ it, sum -> sum + it}
+employees.foldRight(0L) { it, sum -> it.salary + sum }
 
-val sumFoldedRight = employees.map { it.salary }
-    .foldRight(0L, Long::plus)
-val sumFolded = employees.map { it.salary }
-    .foldRight(0L){ it, sum -> it + sum }
+employees.fold(0L) { sum, it -> it.salary + sum }
 ```
 
+Note:
+- Fold works on Long and Employee (forskjellige typer, går ikke med reduce)
+- Fold tar 2 argument, initial value og lambda. lambda som siste argument kan stå
+utenfor parantesene
 ---
 
 ## Lambdas
@@ -566,7 +664,8 @@ val name = concatenator("First", "Last")
 - Use separate block when calling
 
 ```kotlin
-fun intOperator(v1: Int, v2: Int, operation: (Int, Int) -> Int ): Int = operation(v1, v2)
+fun intOperator(v1: Int, v2: Int, op: (Int, Int) -> Int ): Int 
+    = op(v1, v2)
 val sum = intOperator(2, 3) { n1, n2 -> n1 + n2 }
 val sum2 = intOperator(2, 3, Int::plus)
 ```
@@ -585,15 +684,19 @@ println("2 x 4 = ${doubler(4)}")
 ---
 
 ## Tuples/Pair
- - `to`
+ - `to` / Pair
  - destructuring
 
 ```kotlin
 val tuple = 42 to "The meaning"
+val pair = Pair(42, "The meaning")
 val theSecret = tuple.first
 
 val (secret, message) = tuple
 ```
+
+Note:
+- to er en infix funksjon som returnerer et Pair
 ---
 
 ## Data class is tuple
@@ -602,13 +705,22 @@ val (secret, message) = tuple
 - Order is important
 
 ```kotlin
-data class Person(val name: String, val age: Int, val occupation: String)
+data class Person(val name: String, 
+                  val age: Int, 
+                  val occupation: String)
 val bjorn = Person("Bjørn", 46, "Programmer")
 val (na, _, occ) = bjorn
 ```
-
+Note:
+- destucturing virker for klasser som implementerer component1, component2...
+- lister implementerer component1..5
+- data classer for alle properties
 ---
 
+# Exercises - Part 2
+
+
+---
 # Part 3
 
 

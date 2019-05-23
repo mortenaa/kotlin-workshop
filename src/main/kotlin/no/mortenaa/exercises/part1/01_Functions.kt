@@ -17,7 +17,7 @@ fun helloWorld(): String = "Hello World!"
 /**
  * 2. Assignment.
  *
- * Assign a bytes to [a] such that the function returns 25"
+ * Assign a value to [a] such that the function returns 25"
  *
  */
 fun assignment(): Int {
@@ -67,6 +67,8 @@ fun maxOf3(n: Int, m: Int, i: Int): Int = max(n, max(m, i))
  * (without using the built in [Double.absoluteValue])
  */
 fun abs(value: Double): Double = if (value >= 0) value else -value
+
+// EXTRA if you've got time in the end, come back and solve these
 
 /**
  * 8. Leap Year

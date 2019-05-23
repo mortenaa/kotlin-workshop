@@ -31,7 +31,7 @@ fun nullable(firstName: String, middleName: String?, lastName: String, occupatio
  * 2. Nullabillity and Elvis
  *
  * Given the supplied petStoreService and petId, fix the commented out code (it won't compile as it is)
- *
+ * (use "NA" as replacement for null values)
  */
 fun findPetAndCategoryName(petStoreService: PetStoreService, petId: PetId): Pair<String, String>? {
     val pet: Pet? = petStoreService.findById(petId)
@@ -43,7 +43,7 @@ fun findPetAndCategoryName(petStoreService: PetStoreService, petId: PetId): Pair
  *
  * This function should decide what type the input is, and return
  *  the first character if it is a String
- *  the bytes / 2 if it's an even Int
+ *  the value / 2 if it's an even Int
  *  1 if it's an odd Int
  *  0 if it's a Double greater or equal to 0
  *  -1 if it's a Double less than 0

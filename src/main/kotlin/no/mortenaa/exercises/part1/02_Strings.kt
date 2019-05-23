@@ -75,4 +75,4 @@ fun movieToJson(title: String, year: Int, runtime: Int, rating: String = "PG-12"
  * Example: "application programming interface" => "API"
  *
  */
-fun acronym(title: String) = title.split(" ").map{ it.first().toUpperCase() }.joinToString("")
+fun acronym(title: String) = title.split(" ").map { it.first().toUpperCase() }.joinToString("")
