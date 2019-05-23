@@ -5,10 +5,11 @@
 Note:
 Morten Begynner her
 ---
-## Clone eller last ned kildekode fra Github
+### Clone eller last ned kildekode fra Github
+(Bruk https ikke ssh om du er på gjestenettet)
 * https://github.com/mortenaa/kotlin-workshop
 
-## Wifi
+### Wifi
 * Koble til GCR-Gjest
 * Åpne nettleser
 * Skriv inn fornavn, etternavn og mobilnummer
