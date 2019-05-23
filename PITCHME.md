@@ -26,6 +26,10 @@ Morten Begynner her
     - 50 min. theory
     - 45 min. exercises
     - 15 min. solutions 
+
+Note:
+Ikke bruk for mye tid på en enkelt oppgave eller seksjon, prøv å være innom alle seksjonene,
+og kom heller tilbake til oppgaver
 ---
 
 ## About Kotlin
@@ -35,10 +39,11 @@ Morten Begynner her
  - Inspired (a lot) by Scala, Groovy and others
 
 Note:
-Lansert i 2011
-v1.0 regnet som første stabile release kom i 2016
-Introdusert som et alternativ til Java.
-Objekt orientert og funksjonelt
+- Lansert i 2011
+- v1.0 regnet som første stabile release kom i 2016
+- Introdusert som et alternativ til Java.
+- Objekt orientert og funksjonelt
+- Språket utvikles av JetBrains, men er Open Source, og har mange eksterne bidragsytere 
 
 --- 
  
@@ -46,7 +51,11 @@ Objekt orientert og funksjonelt
  - https://kotlinlang.org/docs/reference/
  - https://play.kotlinlang.org/koans/overview
  - https://www.coursera.org/learn/kotlin-for-java-developers
+ - https://surveys.jetbrains.com/s3/kotlin-slack-sign-up
 
+Note:
+Spesifikasjon, stdlib doc, tutorials++ på kotlinlang
+Kotlin Koans kan løses online eller med EduTools plugin i intellij
 ---
 
 ## Why Kotlin
