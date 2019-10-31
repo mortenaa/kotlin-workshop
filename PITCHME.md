@@ -120,7 +120,7 @@ Semicolons are optional, but are by convention only used to separate multiple st
 ```kotlin
 val firstName = "Bjørn"
 val lastName = "Hamre"
-val fullName = "$lastName, $firstName"
+val fullName = "${lastName.toUpperCase()}, $firstName"
 val multiLineString = """
     SELECT *
     FROM my_table
@@ -158,7 +158,8 @@ Note:
  - a top level function will be compiled in a class corresponding to the source file on the jvm.
 ---
 
-## No return value
+## Unit as return type
+ - When no (other) value will be returnd
  - Will actually return an object of type Unit
  - Unit can be inferred
 
@@ -177,7 +178,7 @@ Note:
 ---
 
 ## Default values
- - Function arguments can have default value
+ - A function argument can have a default value
 
 ```kotlin
 fun printTemperature(degrees: Double, unit: String = "Celcius") {
@@ -424,8 +425,8 @@ Note:
 ```kotlin
 class Person(val lastName: String,
              val firstName: String,
-             val middleName: String = "") {
-    fun fullName() = "$firstName $middleName $lastName"
+             val middleName: String? = null) {
+    fun initials() = "${firstName[0]}${middleName?.get(0)?:""}${lastName[0]}"
 }
 
 val defaultMiddleName = Person("Hamre", "Bjørn" )
@@ -434,8 +435,8 @@ val namedArguments = Person(
     middleName = "Håkonsen",
     lastName = "Hamre")
 
-println(defaultMiddleName.fullName()) //> Bjørn Hamre
-println(namedArguments.fullName())    //> Bjørn Håkonsen Hamre
+println(defaultMiddleName.fullName()) //> BH
+println(namedArguments.fullName())    //> BHH
 ```
 Note:
 - Default values -> fewer constructors
@@ -535,7 +536,7 @@ Note:
   - no getters
 ---
 ## Collections
- - immutable "by default"
+ - "Immutable" by default
 
 ```kotlin
 val list = listOf("Bjørn", "Erik", "Thomas")
@@ -581,6 +582,7 @@ for at den ikke kan endres.
 val fruits = listOf("Apple", "Banana")
 val apple = fruits[0]
 val banana = fruits.get(1)
+val maybeFruit: Fruit? = fruits.getOrNull()
 
 val moreFruits = fruits + "Orange"
 val mixedUp: String = "Orange" + fruits
