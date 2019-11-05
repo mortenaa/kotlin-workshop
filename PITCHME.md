@@ -426,7 +426,7 @@ Note:
 class Person(val lastName: String,
              val firstName: String,
              val middleName: String? = null) {
-    fun initials() = "${firstName[0]}${middleName?.get(0)?:""}${lastName[0]}"
+    fun initials() = "${firstName.first()}${middleName?.get(0)?:""}${lastName[0]}"
 }
 
 val defaultMiddleName = Person("Hamre", "Bjørn" )
@@ -442,6 +442,7 @@ Note:
 - Default values -> fewer constructors
 - Put default values at the end of the signature
 - When using named arguments to the constructor it looks a lot like a builder
+- Characters accessed as in array. Indexed, get(). Must use get with ?.
 
 ---
 ## Inheritance
