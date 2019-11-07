@@ -734,24 +734,6 @@ Note:
 - data classer for alle properties
 ---
 
-# Exercises - Part 2
-
-
----
-# Part 3
-
-
----
-## More about classes
- - Can be abstract, sealed, open
- - Can have several constructors
- - Can implement interfaces
- - supports inheritance
- - ...whatever java classes can do
-
-
----
-
 ## Singletons (utility classes)
 - No private constructor and hassle
 
@@ -796,5 +778,8 @@ directly within a package.
 ---
 
 
+# Exercises - Part 2
 
+
+---
 
