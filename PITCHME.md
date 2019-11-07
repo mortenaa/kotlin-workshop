@@ -2,6 +2,8 @@
 ## Morten Nygaard Åsnes 
 ## Bjørn Hamre
 
+Note:
+Morten Begynner her
 ---
 
 # Program
@@ -277,6 +279,7 @@ when (surprise) {
 But 'var' isn't functional !
 
 Note:
+Bjørn tar over fom. denne sliden
 - brukes hvor en ellers ville brukt switch, else if
 - smart casting
 - sjekk type og verdi på variabel
@@ -350,6 +353,7 @@ Note:
 ## Classes
 ...and friends
 
+Note: Bjørn fortsetter her...
 ---
 
 ### A Java example
@@ -549,6 +553,7 @@ println(modifiedList) //[Bjørn, Erik, Thomas, The Bear]
 ```
 
 Note:
+Morten tar over fom. denne sliden
 Collections i Kotlin er Java stdlib collections, med
 utvidelser og tillegsfunksjoner som gjør de lettere å jobbe med.
 Kan utveksle kollections mellom java og kotlin kode uten noe konvertering
