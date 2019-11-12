@@ -51,7 +51,7 @@ class CollectionsTest : StringSpec({
         appStats.totalReviews() shouldBe 4817617393L
     }
 
-    "7. Categories sorted by average price in the category" {
+    "7. Categories sorted by average rating in the category" {
         val appStats: AppStats = AppStats.getAppStatsService(appInfoList)
         val categoriesByRating = appStats.categoriesOrderedByRating()
         categoriesByRating.first() shouldBe Category.EVENTS
