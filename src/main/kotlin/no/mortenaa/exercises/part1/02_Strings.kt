@@ -6,7 +6,7 @@ package no.mortenaa.exercises.part1
  * Use string templates ($) to format [name] and [value] as "name=value"
  */
 fun stringFormat(name: String, value: Number): String {
-    TODO()
+    return "$name=$value"
 }
 
 /**
@@ -23,7 +23,8 @@ fun stringFormat(name: String, value: Number): String {
  *
  */
 fun splitString(input: String): String {
-    TODO()
+    val (l, f, a) = input.split(", ")
+    return "${f.first().toUpperCase()}${l.first().toUpperCase()}: $a"
 }
 
 /**
@@ -35,7 +36,7 @@ fun splitString(input: String): String {
  *
  */
 fun isPalindrome(s: String): Boolean {
-    TODO()
+    return s == s.reversed()
 }
 
 /**
@@ -47,7 +48,7 @@ fun isPalindrome(s: String): Boolean {
  * HINT: Use the named arguments `prefix` and `postfix`
  */
 fun jsonFormat(list: List<Int>): String {
-    TODO()
+    return list.joinToString(separator = ", ", prefix = "[", postfix = "]")
 }
 
 /**
@@ -63,7 +64,15 @@ fun jsonFormat(list: List<Int>): String {
  * """
  */
 fun movieToJson(title: String, year: Int, runtime: Int, rating: String = "PG-12", country: String = "USA"): String {
-    TODO()
+    return """
+        {
+            "title": "$title",
+            "year": $year,
+            "runtime": $runtime,
+            "rating": "$rating",
+            "country": "$country"
+        }
+    """.trimIndent()
 }
 
 /**
@@ -75,5 +84,8 @@ fun movieToJson(title: String, year: Int, runtime: Int, rating: String = "PG-12"
  *
  */
 fun acronym(title: String): String {
-    TODO()
+    return title.split(" ")
+        .map { it.first() }
+        .map { it.toUpperCase() }
+        .joinToString(separator = "")
 }

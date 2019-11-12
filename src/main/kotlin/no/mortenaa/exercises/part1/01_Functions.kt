@@ -13,7 +13,7 @@ package no.mortenaa.exercises.part1
  * Make the function [helloWorld] return the [String] "Hello World!"
  */
 fun helloWorld(): String {
-    TODO()
+    return "Hello World!"
 }
 
 /**
@@ -23,7 +23,7 @@ fun helloWorld(): String {
  *
  */
 fun assignment(): Int {
-    val a: Int = TODO()
+    val a: Int = 5
     val b = 5
     return a * b
 }
@@ -36,9 +36,7 @@ fun assignment(): Int {
  * remove the call to fail("...") from the corresponding test when you're done)
  */
 fun varAndVal(a: String, b: String): String {
-    var name: String = a.capitalize()
-    name += " and "
-    name += b.capitalize()
+    val name: String = a.capitalize() + " and " + b.capitalize()
     return name
 }
 
@@ -47,7 +45,7 @@ fun varAndVal(a: String, b: String): String {
  *
  * Return the square of the input [n]
  */
-fun square(n: Int): Int = TODO()
+fun square(n: Int): Int = n * n
 
 /**
  * 5. Max.
@@ -55,7 +53,7 @@ fun square(n: Int): Int = TODO()
  * Make this function return the highest number of [n] or [m]
  */
 fun max(n: Int, m: Int): Int {
-    TODO()
+    return if (n > m) n else m
 }
 
 /**
@@ -64,7 +62,7 @@ fun max(n: Int, m: Int): Int {
  * Make this function return the highest number of [n], [m] and [i]
  */
 fun maxOf3(n: Int, m: Int, i: Int): Int {
-    TODO()
+    return max(max(n, m), i)
 }
 
 /**
@@ -74,7 +72,7 @@ fun maxOf3(n: Int, m: Int, i: Int): Int {
  * (without using the built in [Double.absoluteValue])
  */
 fun abs(value: Double): Double {
-    TODO()
+    return if (value < 0) -value else value
 }
 
 // EXTRA if you've got time in the end, come back and solve these
@@ -92,7 +90,12 @@ fun abs(value: Double): Double {
  *
  */
 fun isLeapYear(year: Int): Boolean {
-  TODO()
+  return when {
+    year.rem(400) == 0 -> true
+    year.rem(100) == 0 -> false
+    year.rem(4) == 0 -> true
+    else -> false
+  }
 }
 
 
@@ -107,5 +110,7 @@ fun isLeapYear(year: Int): Boolean {
  *
  */
 fun pace(distance: Int, minutes: Int, seconds: Int): Pair<Int, Int> {
-    TODO()
+    val t = minutes * 60 + seconds
+    val paceSeconds = t * 1000 / distance
+    return paceSeconds.div(60) to paceSeconds.rem(60)
 }

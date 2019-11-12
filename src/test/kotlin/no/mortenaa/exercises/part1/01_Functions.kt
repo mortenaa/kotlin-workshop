@@ -17,7 +17,7 @@ class FunctionsTest : StringSpec({
     }
 
     "3. use val instead of var" {
-        fail("Remove this line when you have finished the exercise")
+        //fail("Remove this line when you have finished the exercise")
         varAndVal("Korg", "Miek") should match("Korg and Miek")
     }
 
