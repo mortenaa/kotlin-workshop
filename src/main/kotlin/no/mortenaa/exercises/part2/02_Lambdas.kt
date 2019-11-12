@@ -15,7 +15,7 @@ fun filterUpperCase(s: String): String {
  * 2. Count letters
  *
  * [String.count] can take a lambda with signature '(Char) -> Boolean' to return a count
- * of how many characters in a String fir which the lambda returns 'true'
+ * of how many characters in a String for which the lambda returns 'true'
  * Use it to count the number of occurrences of the Char [c] in the String [s]
  */
 fun letterCount(s: String, c: Char): Int {
