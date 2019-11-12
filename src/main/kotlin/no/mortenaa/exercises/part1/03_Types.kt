@@ -27,7 +27,7 @@ fun nullable(firstName: String, middleName: String?, lastName: String, occupatio
  * Given the supplied petStoreService and petId, fix the commented out code (it won't compile as it is)
  * (use "NA" as replacement for null values)
  */
-fun findPetAndCategoryName(petStoreService: PetStoreService, petId: PetId): Pair<String, String>? {
+fun findPetAndCategoryName(petStoreService: PetStoreService, petId: PetId): Pair<String, String> {
     val pet = petStoreService.findById(petId)
     //return Pair(pet.name, pet.category.name)
     TODO()
