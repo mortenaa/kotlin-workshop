@@ -33,8 +33,7 @@ fun assignment(): Int {
  *
  * Rewrite the function to use [val] instead of [var]
  * (this exercise cannot be verified by the test code, so simply
- * remove the call to fail("...") when you're done)
- *
+ * remove the call to fail("...") from the corresponding test when you're done)
  */
 fun varAndVal(a: String, b: String): String {
     var name: String = a.capitalize()
