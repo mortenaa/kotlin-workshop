@@ -639,13 +639,11 @@ da kan man bruke collection?.get(i) men ikke collection[i]
 
 ```kotlin
 data class Employee(val name: String, val salary: Long)
-
 val employees = listOf(
     Employee("Bjørn", 1_000_000),
     Employee("Junior", 300_000),
     Employee("The Boss", 5_000_000)
 )
-
 val highSalaries: List<Long> =
     employees.filter { emp -> emp.salary > 500_000 }
         .filter { it.salary > 500_000 }
