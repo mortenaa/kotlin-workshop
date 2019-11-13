@@ -714,7 +714,7 @@ val name = concatenator("First", "Last")
 @[1-2]
 @[3-4]
 @[5]
-@[6]
+@[7]
 Note:
 parameter til lambda kan ofte utledes
 type signaturen til lambdaen kan utledes
