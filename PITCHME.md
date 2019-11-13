@@ -36,19 +36,10 @@ Note:
 - v1.0 regnet som første stabile release kom i 2016
 - Introdusert som et alternativ til Java.
 - Objekt orientert og funksjonelt
-- Språket utvikles av JetBrains, men er Open Source, og har mange eksterne bidragsytere 
+- Språket utvikles av JetBrains, men er Open Source, og har mange eksterne bidragsytere
+- Popular on android. Supported by Google.
+- Siden mai 2019 det foretrukne språket på Android
 
---- 
- 
-## Resources
- - https://kotlinlang.org/docs/reference/
- - https://play.kotlinlang.org/koans/overview
- - https://www.coursera.org/learn/kotlin-for-java-developers
- - https://surveys.jetbrains.com/s3/kotlin-slack-sign-up
-
-Note:
-Spesifikasjon, stdlib doc, tutorials++ på kotlinlang
-Kotlin Koans kan løses online eller med EduTools plugin i intellij
 ---
 
 ## Why Kotlin
@@ -60,8 +51,7 @@ Kotlin Koans kan løses online eller med EduTools plugin i intellij
 
 Note:
 Mer konsist
-Popular on android. Supported by Google.
-Siden mai 2019 det foretrukne språket på Android
+
 
 ---
 
@@ -349,6 +339,7 @@ Note:
 ---
 
 # Exercises - Part 1
+**https://github.com/mortenaa/kotlin-workshop**
 
 ---
 
@@ -780,9 +771,19 @@ directly within a package.
 
 ---
 
-
 # Exercises - Part 2
+**https://github.com/mortenaa/kotlin-workshop**
 
+--- 
+ 
+## Resources
+ - https://github.com/mortenaa/kotlin-workshop
+ - https://kotlinlang.org/docs/reference/
+ - https://play.kotlinlang.org/koans/overview
+ - https://www.coursera.org/learn/kotlin-for-java-developers
+ - https://surveys.jetbrains.com/s3/kotlin-slack-sign-up
 
----
-
+Note:
+Spesifikasjon, stdlib doc, tutorials++ på kotlinlang
+Kotlin Koans kan løses online eller med EduTools plugin i intellij, den brukes også til å løse oppgaver
+i Coursera kurset.
