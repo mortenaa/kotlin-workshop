@@ -1,6 +1,8 @@
 # kotlin-workshop
 
-Kotlin Workshop for [javaBin Bergen - May 23, 2019](https://www.meetup.com/javaBin-Bergen/events/258680498/)
+Kotlin Workshop for [javaBin Trondheim - November 13, 2019](https://www.meetup.com/javaBin-Trondheim/events/264448853/)
+
+(tidligere holdt for [javaBin Bergen - May 23, 2019](https://www.meetup.com/javaBin-Bergen/events/258680498/))
 
 *By [Morten N. Åsnes](https://github.com/mortenaa) and [Bjørn Hamre](https://github.com/javaguruen)*
 
