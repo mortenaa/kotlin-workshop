@@ -458,21 +458,24 @@ Note:
  - Named arguments
 
 ```kotlin
-class Person(val lastName: String,
-             val firstName: String,
-             val middleName: String? = null) {
-    fun initials() = "${firstName.first()}${middleName?.get(0)?:""}${lastName[0]}"
+class Person(val lName: String,
+             val fName: String,
+             val mName: String? = null) {
+    fun initials() = "${fName.first()}${mName?.get(0)?:""}${lName[0]}"
 }
 
 val defaultMiddleName = Person("Hamre", "Bjørn" )
 val namedArguments = Person(
-    firstName = "Bjørn",
-    middleName = "Håkonsen",
-    lastName = "Hamre")
+    fName = "Bjørn",
+    mName = "Håkonsen",
+    lName = "Hamre")
 
-println(defaultMiddleName.fullName()) //> BH
-println(namedArguments.fullName())    //> BHH
+println(defaultMiddleName.initials()) //> BH
+println(namedArguments.initials())    //> BHH
 ```
+@[1-5]
+@[7, 13]
+@[8-11, 14]
 Note:
 - Default values -> fewer constructors
 - Put default values at the end of the signature
@@ -544,6 +547,9 @@ val otherBjorn = bjorn.copy(sex = "Male", age = 29)
 println(otherBjorn)
 > Person(firstName=Bjørn, lastName=Hamre, age=29, sex=Male)
 ```
+@[1-6]
+@[7-9]
+@[10-12]
 Note:
  - Can implement methods
  - Inheritance: A data class can extend but not be extended
@@ -705,6 +711,10 @@ val concatenator = { s1: String, s2: String -> s1+s2}
 
 val name = concatenator("First", "Last")
 ```
+@[1-2]
+@[3-4]
+@[5]
+@[6]
 Note:
 parameter til lambda kan ofte utledes
 type signaturen til lambdaen kan utledes
