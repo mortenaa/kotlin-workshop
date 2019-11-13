@@ -50,7 +50,8 @@ Note:
  - Null safe
 
 Note:
-Mer konsist
+Mer konsist språk. Lett å ta i bruk i en java kodebase. Veldig bra Java interop. Trygger språk,
+flere feil kan fanges opp av kompilatoren før koden kjøres.
 
 
 ---
@@ -61,6 +62,12 @@ Mer konsist
  - Native
  - Android
 
+Note:
+Jvm, inkludert gralVM 
+Nativ via LLVM og nativ implementasjon av standardbibliotek. (uten vm, men med gc)
+Js i frontend, som muligjør deling av kode mellom backend og frontent
+Dominerende språk på Android
+
 ---
 
 ## Getting started
@@ -68,6 +75,10 @@ Mer konsist
  - IntelliJ has Kotlin support
  - Maven and gradle support
  - Easy to run scripts (.kts)
+
+Note:
+Innebygd Kotlin støtte i IntelliJ, trenger ikke laste ned noe selv.
+IntelliJ har også en Kotlin REPL
 
 ---
 
@@ -83,7 +94,11 @@ Mer konsist
 
 Note:
 Not primitive types. Basic types are compiled to native Jvm types where possible.
-
+Multidimensjonale array ikke så elegant
+Any er superklassen til alle klasser (som Object i Java)
+Unit er en singleton type som kun har en verdi. Brukes som void i Java.
+Nothing er en type uten instanser. Representerer en ikke eksisterende verdi. En funksjon som har returtype
+Nothing kan ikke returnere noe (ikke en gang Unit) og m derfor caste en exception eller gå i en evig løkke.
 ---
 
 ## Variables/Values
@@ -105,6 +120,10 @@ println("Value" === finalName) // java: ==
 Note:
 
 Semicolons are optional, but are by convention only used to separate multiple statements on the same line.
+val betyr at variabelen ikke kan tilordnes på nytt, ikke at innholdet er immutable!
+type interferens betyr at vi ikke trenger å gjente oss selv i deklarasjoner (er også komt til Java)
+== tilsvarer equals og sammenligner innhold (om equals er implementert slik)
+=== er referanselikhet som == i Java
 
 ---
 
@@ -126,6 +145,8 @@ val multiLineString = """
 
 Note:
 $ is used for single variables, ${} evaluating expressions
+Enklere å tryggere enn String.format i java. Kompilatoren sjekker koden som interpoleres i strengen på linje
+med annen kode. Også kompletion inne i stringen.
 raw string kan inneholde spesialteng uten escaping. også nyttig for regexp.
 
 ---
@@ -145,12 +166,13 @@ println("square(3) == ${square(3)}") //> 9
 
 ```
 Note:
-
+ - syntaks forskjeller
  - fun keyword
  - return type end of signatur
- - return type inferred in oneliners
+ - return type inferred in oneliners (kan være mer en en linje)
  - placement of colon
  - a top level function will be compiled in a class corresponding to the source file on the jvm.
+ 
 ---
 
 ## Unit as return type
@@ -199,7 +221,9 @@ confusing("Ole", true, true)
 confusing(name = "Ole", isAdmin = true, isActive = false)
 ```
 Note:
-When a function is called with both positional and named arguments, all the positional arguments should be placed before the first named one. For example, the call f(1, y = 2) is allowed, but f(x = 1, 2) is not.
+When a function is called with both positional and named arguments, all the positional arguments 
+should be placed before the first named one. For example, the call f(1, y = 2) is allowed, but f(x = 1, 2) is not.
+
 ---
 
 ## Nullable types
@@ -215,6 +239,10 @@ if (middleName != null) {
     println("Middle name: $middleName")
 }
 ``` 
+Note:
+Compiler forstår at middleName ikke er null etter en nullsjekk,
+selv om type er nullable
+Ingen Optional type i utganspunktet (men man kan om man vil)
 
 ---
 ## Nullsafe and Elvis
@@ -228,6 +256,10 @@ val upperMiddleName: String? = middleName?.toUpperCase()
 val defaultIfNull: String = middleName?.toUpperCase() ?: ""
 ```
 
+Note:
+?. verdien om ikke null, ellers null
+?: verdi om utrykket før var null
+
 ---
 
 ## !! operator
@@ -238,6 +270,10 @@ val defaultIfNull: String = middleName?.toUpperCase() ?: ""
 ```kotlin
 val l = b!!.length
 ```
+
+Note:
+Bør ungås. Er en code smell om man bruker den mye. Men noen ganger må man.
+Og noen ganger er ikke kompilatoren helt smart nok til å skjønne at noe ikke kan være null.
 
 ---
 
@@ -254,6 +290,7 @@ if (something is String) {
 ```
 Note:
 is = instanceof
+Smart cast ligner på null sjekk som kompilatoren skjønte
 
 ---
 
@@ -534,6 +571,7 @@ Note:
   - no constructor
   - no getters
 ---
+
 ## Collections
  - "Immutable" by default
 
@@ -551,6 +589,7 @@ Morten tar over fom. denne sliden
 Collections i Kotlin er Java stdlib collections, med
 utvidelser og tillegsfunksjoner som gjør de lettere å jobbe med.
 Kan utveksle kollections mellom java og kotlin kode uten noe konvertering
+
 ---
 
 ## Collections
@@ -566,8 +605,6 @@ val mmap  = mutableMapOf("B" to "Bjørn", "E" to "Erik")
 println(mmap)
 ```
 Note:
-//todo: .toMutable
-//ikke immutable i bytekode/java
 Kompilatoren overholder at man ikke modifiserer en immutable collection,
 men siden det er en java collection "bak" som er mutable, er det ingen garantier
 for at den ikke kan endres.
@@ -635,6 +672,7 @@ val sumReducedRight = employees.map { it.salary }
 Note:
 - Direction is different.
 - Reduces from List of Long to Long 
+- Samme type
 ---
 
 ## Fold a collection
@@ -656,7 +694,7 @@ utenfor parantesene
 
 ## Lambdas
 - Function style: `(params) -> returnType` 
-- Types can be inferred in one position
+- Types can be inferred
 
 ```kotlin
 val concatenator: (s1: String, s2: String) -> String 
@@ -667,12 +705,15 @@ val concatenator = { s1: String, s2: String -> s1+s2}
 
 val name = concatenator("First", "Last")
 ```
-
+Note:
+parameter til lambda kan ofte utledes
+type signaturen til lambdaen kan utledes
+kan utelate argument til lambda om det kun er en (it)
+kan bruke _ for argument vi ikke bryr oss om
 ---
 
 ## Pass lambda as argument to function
 - Lambda as last parameter
-- Use separate block when calling
 
 ```kotlin
 fun intOperator(v1: Int, v2: Int, op: (Int, Int) -> Int ): Int 
@@ -680,6 +721,9 @@ fun intOperator(v1: Int, v2: Int, op: (Int, Int) -> Int ): Int
 val sum = intOperator(2, 3) { n1, n2 -> n1 + n2 }
 val sum2 = intOperator(2, 3, Int::plus)
 ```
+Note:
+Lambda innline i funksjonskallet kan flyttes utenfor om det er siste argument
+Kan referere til funksjoner med :: om de har riktig signatur
 ---
 
 ## Return lambda from function
@@ -692,6 +736,10 @@ val trippler: (Int) -> Int = times(3)
 println("2 x 4 = ${doubler(4)}")
 > 2 x 4 = 8
 ```
+Note:
+returnerer en lambda/funksjon fra int til int
+kan assignes til variabel
+og kalles som en vanlig funksjon
 ---
 
 ## Tuples/Pair
@@ -708,6 +756,7 @@ val (secret, message) = tuple
 
 Note:
 - to er en infix funksjon som returnerer et Pair
+- kan også lage egne infix funksjoner (og operator overloading) men det kommer vi ikke inn på her
 ---
 
 ## Data class is tuple
@@ -726,13 +775,16 @@ Note:
 - destucturing virker for klasser som implementerer component1, component2...
 - lister implementerer component1..5
 - data classer for alle properties
+- men blir feil om man endrer på rekkefølgen!
 ---
 
-## Singletons (utility classes)
-- No private constructor and hassle
+## object / singleton
+- Can inherit classes
+- Can implement interfaces 
+- No constructor
 
 ```kotlin
-object Utilities{
+object Utilities {
     fun toUpper(text: String) = text.toUpperCase()
 }
 
@@ -746,11 +798,13 @@ note:
    - but with less code.
 - "static" utility classes
 - Not static in the byte code
+
 ---
 
 ## Companion object
  - object inside class
- - Eg. factory
+ - shared between instances of the class
+ - Factory
 
 ```kotlin
 class MyClass private constructor() {
@@ -768,7 +822,7 @@ Note:
  - If a group of functions are high level, general, and widely useful then place them
 directly within a package. 
 - If on the other hand, a few functions are more closely related to each other than the other functions, like create() and configure(), are more closely related to each other than to milesToKm() ,then place them within a singleton.
-
+- Static methods in Java
 ---
 
 # Exercises - Part 2
