@@ -646,7 +646,6 @@ val employees = listOf(
 )
 val highSalaries: List<Long> =
     employees.filter { emp -> emp.salary > 500_000 }
-        .filter { it.salary > 500_000 }
         .map { it.salary }
 val average = highSalaries.average()
 
