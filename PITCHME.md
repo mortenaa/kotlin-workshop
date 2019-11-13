@@ -2,6 +2,9 @@
 ## Morten Nygaard Åsnes 
 ## Bjørn Hamre
 
+### Clone eller last ned kildekode fra Github
+* https://github.com/mortenaa/kotlin-workshop
+
 Note:
 Morten Begynner her
 ---
