@@ -651,6 +651,9 @@ val highSalaries: List<Long> =
 val average = highSalaries.average()
 
 ```
+@[1]
+@[2-6]
+@[7-11]
 Note: Vi kommer tilbake til syntax for lambda utrykk
 ---
 
