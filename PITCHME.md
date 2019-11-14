@@ -625,7 +625,7 @@ for at den ikke kan endres.
 val fruits = listOf("Apple", "Banana")
 val apple = fruits[0]
 val banana = fruits.get(1)
-val maybeFruit: Fruit? = fruits.getOrNull()
+val maybeFruit: Fruit? = fruits.getOrNull(2)
 
 val moreFruits = fruits + "Orange"
 val mixedUp: String = "Orange" + fruits
