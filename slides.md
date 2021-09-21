@@ -32,6 +32,7 @@ Ikke bruk for mye tid på en enkelt oppgave eller seksjon, prøv å være innom 
 og kom heller tilbake til oppgaver
 -->
 
+----
 # Program (day 2)
 
  - Part 3 - TBD
@@ -381,7 +382,7 @@ val result = when {
 
 ```kotlin
 val random = Random().nextInt()
-val absolute = if (random < 0) -random else random
+val absoluteValue = if (random < 0) -random else random
 ```
 
 ---
@@ -405,7 +406,7 @@ val value = try {
 ---
 
 # Exercises - Part 1
-**https://github.com/mortenaa/kotlin-workshop**
+**https://github.com/javaguruen/kotlin-workshop**
 
 ---
 
@@ -800,8 +801,9 @@ kan bruke _ for argument vi ikke bryr oss om
 ```kotlin
 fun intOperator(v1: Int, v2: Int, op: (Int, Int) -> Int ): Int 
     = op(v1, v2)
-val sum = intOperator(2, 3) { n1, n2 -> n1 + n2 }
-val sum2 = intOperator(2, 3, Int::plus)
+val sum = intOperator(2, 3, { n1, n2 -> n1 + n2 })
+val sum2 = intOperator(2, 3) { n1, n2 -> n1 + n2 }
+val sum3 = intOperator(2, 3, Int::plus)
 ```
 
 <!-- 
@@ -814,10 +816,11 @@ Kan referere til funksjoner med :: om de har riktig signatur
 
 ## Return lambda from function
 - Return type is a lambda
+- (currying)
 
 ```kotlin
 fun times(base: Int): (Int) -> Int = { value -> base * value }
-val doubler = times(2)
+val doubler = times(2)  //2 => base
 val trippler: (Int) -> Int = times(3)
 println("2 x 4 = ${doubler(4)}")
 > 2 x 4 = 8
@@ -874,9 +877,9 @@ Note:
 ---
 
 ## object / singleton
-- Can inherit classes
-- Can implement interfaces 
 - No constructor
+- No private constructor and hassle
+- Replaces static utility classes in Java
 
 ```kotlin
 object Utilities {
@@ -901,7 +904,7 @@ note:
 ## Companion object
  - object inside class
  - shared between instances of the class
- - Factory
+ - Eg. Factory
 
 ```kotlin
 class MyClass private constructor() {
@@ -926,12 +929,12 @@ directly within a package.
 ---
 
 # Exercises - Part 2
-**https://github.com/mortenaa/kotlin-workshop**
+**https://github.com/javaguruen/kotlin-workshop**
 
 --- 
  
 ## Resources
- - https://github.com/mortenaa/kotlin-workshop
+ - https://github.com/javaguruen/kotlin-workshop
  - https://kotlinlang.org/docs/reference/
  - https://play.kotlinlang.org/koans/overview
  - https://www.coursera.org/learn/kotlin-for-java-developers

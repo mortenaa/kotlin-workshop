@@ -1,7 +1,32 @@
 # TODO
 
+* Si noe i starten om funksjonell programmering:
+   * immutable
+   * filter, map, reduce
+   * functions FCC
 * Add part 3 to outline of workshop
+* klasse:
+   * constructor args (not val/var)
+   * inti {}
+   * rekkefølge på dem
 
+# Etter workshop:
+fun returnLambda() = { () -> println("Lambda")}
+fun returnLambda() { println("Lambda") }
+
+data class osm testdata med copy og default named arguments
+
+@JvmStatic
+
+object og companion object fra java
+
+object:
+* - Can inherit classes
+* - Can implement interfaces 
+
+generics
+
+immutable lists to java and back
 
 ---
 Removed slides
