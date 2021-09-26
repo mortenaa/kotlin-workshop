@@ -1,9 +1,183 @@
-# TODO
+---
+marp: true
+---
+
+# Part 3
+* More on classes
+
+---
+
+# Default values
+```
+class Temperature(val value: Double, val unit: String = "Celsius") {
+    override fun toString() = "Temperature is $value $unit"
+}
+
+println(Temperature(17.5, "Fahrenheit"))
+println(Temperature(21.5))
+
+Temperature is 17.5 Fahrenheit
+Temperature is 21.5 Celsius
+```
+<!--
+Støttes ikke fra Java. 
+-->
+
+---
+# Multiple constructors
+```kotlin
+class Temperature(val value: Double, val unit: String) {
+    constructor(value: Double) : this(value, "Celsius")
+
+    override fun toString() = "Temperature is $value $unit"
+}
+
+println(Temperature(17.5, "Fahrenheit"))
+println(Temperature(21.5))
+
+Temperature is 17.5 Fahrenheit
+Temperature is 21.5 Celsius
+```
+<!--
+Rotete med mange konstruktører
+-->
+
+---
+# Companion (creational pattern)
+```kotlin
+class Temperature(val value: Double, val unit: String = "Celsius") {
+    override fun toString() = "Temperature is $value $unit"
+
+    companion object{
+        fun of(value: Double) = Temperature(value)
+    }
+}
+```
+```java
+Temperature.Companion.of(3.5));
+```
+<!-- .Companion gir singletonen -->
+
+---
+@JvmStatic
+```kotlin
+class Temperature(val value: Double, val unit: String = "Celsius") {
+    override fun toString() = "Temperature is $value $unit"
+
+    companion object{
+        @JvmStatic fun of(value: Double) = Temperature(value)
+    }
+}
+```
+```java
+Temperature.of(3.5));
+```
+---
+# Scoping functions
+* let
+* with
+* apply
+* run
+* also
+
+---
+# let
+* Will run on non-null objects
+* Last statement returned
+```kotlin
+var canBeNull: String? = "Something"
+
+canBeNull?.let{ 
+    println("Not null: $it")
+}
+
+val upper = canBeNull?.let{ st ->
+    st.uppercase()
+}
+
+```
+---
+# Without and with let
+```kotlin
+val alice = Person("Alice", 20, "Amsterdam")
+println(alice)
+alice.moveTo("London")
+alice.incrementAge()
+println(alice)
+```
+```kotlin
+Person("Alice", 20, "Amsterdam").let {
+    println(it)
+    it.moveTo("London")
+    it.incrementAge()
+    println(it)
+}
+```
+
+---
+# with
+* Multiple operations on same object
+* Last statement returned
+```kotlin
+val numbers = mutableListOf("one", "two", "three")
+val w = with(numbers) {
+    val firstItem = first()
+    val lastItem = last()
+    println("First item: $firstItem, last item: $lastItem")
+    42
+}
+println (w)
+> 42
+```
+---
+# apply
+* Multiple assignments on same object
+* The object is resturned
+* Object configuration
+```kotlin
+val adam = Person("Adam").apply {
+    age = 32
+    city = "London"        
+}
+println(adam)
+```
+---
+# run
+* Extension on "receiver object"
+* Can use it's methods without reference
+  * as an internal function
+```kotlin
+val str = "Hello"
+    // this
+    val lastStatement = str.run {
+        println("The receiver string length: $length")
+        //println("The receiver string length: ${this.length}") // does the same
+    }
+```    
+---
+# also
+* Takes the object as niput
+* Returns the object
+```kotlin
+val two = listOf(1, 2, 3, 4, 5)
+    .filter { it % 2 == 0 }
+    .also { println(it) }
+    .first()
+println(two)
+```
+<!--
+Bruker det i midten av listeoperasjoner hvor jeg ikke ønsker å avbryte strømmen.
+-->
+---
+# Mixing Java and Kotlin
+* Named arguments when instansiating Java classes
+---
 
 * Si noe i starten om funksjonell programmering:
    * immutable
    * filter, map, reduce
    * functions FCC
+
 * Add part 3 to outline of workshop
 * klasse:
    * constructor args (not val/var)
@@ -30,29 +204,6 @@ immutable lists to java and back
 
 ---
 Removed slides
-# Part 2
-## Classes
-...and friends
-
----
-## Classes
- - Primary constructor
- - Default public
- - no `new` when instansiating
-
-```kotlin
-class Person constructor(firstName: String){
-    val name = firstName.toUpperCase()
-    init{
-        println("firstName used in initializer blocks $firstName")
-    }
-}
-
-val bjorn = Person("Bjørn")
-println(bjorn.name)
-```
-
----
 
 ## Getters and setters
 Full syntax:
@@ -105,61 +256,6 @@ Note:
 
 ---
 
-## Nice class features
- - Default values
- - Named arguments
-
-```kotlin
-class Person(val lname: String,
-             val fname: String,
-             val mname: String = ""){
-    fun fullName() = "$fname $mname $lname"
-}
-
-val defaultMname = Person("Hamre", "Bjørn" )
-val namedArguments = Person(
-        fname = "Bjørn",
-        mname = "Håkonsen",
-        lname = "Hamre")
-
-println( defaultMname.fullName() ) //> Bjørn  Hamre
-println( namedArguments.fullName() ) //> Bjørn Håkonsen Hamre
-```
-
-<!-- 
-Note:
-- Default values at the end of the signature
--->
-
----
-
-## Data class
-- When data matters
-- immutable (if val)
-- copy(), toString(), equals()
-
-```kotlin
-data class Person(
-        val firstName: String,
-        val lastName: String,
-        val age: Int,
-        val sex: String = "Not given"
-)
-val bjorn = Person("Bjørn", "Hamre", 46)
-println(bjorn)
-> Person(firstName=Bjørn, lastName=Hamre, age=46, sex=Not given)
-val otherBjorn = bjorn.copy(sex = "Male", age = 29)
-println(otherBjorn)
-> Person(firstName=Bjørn, lastName=Hamre, age=29, sex=Male)
-```
-
-<!--
-Note:
- - Can implement methods
- - Inheritance ?
--->
----
-
 ## Access modifiers
 - Properties and methods of a class can be:
    - public (default): available to all
@@ -168,144 +264,10 @@ Note:
    - internal: available from any code in the same module (=compiled together)
 
 ---
-
-## Enums 
-
-```kotlin
-enum class Direction {
-    NORTH, SOUTH, WEST, EAST
-}
-
-enum class Color(val rgb: Int) {
-        RED(0xFF0000),
-        GREEN(0x00FF00),
-        BLUE(0x0000FF)
-}
-Color.RED.rgb
-```
----
-
-## Singletons (utility classes)
-- No private constructor and hassle
-- object
-
-```kotlin
-object ObjectMapperFactory{
-    fun create() = configure( ObjectMapper() ) 
-    fun configure(objectMapper: ObjectMapper): ObjectMapper {
-        //Configure mapper
-        return objectMapper
-    }
-}
-val objectMapper = ObjectMapperFactory.create() 
-```
-
-<!-- 
-note:
-- ObjectMapperFactory object we created using the object declaration is a singleton. 
-- We can’t create objects of ObjectMapperFactory — it’s not considered to be a class
-   - it’s already an object. 
-- Think of it like a class with a private constructor and only static methods
-   - but with less code.
-- "static" utility classes
--->
----
-
-## Companion object
- - object inside class
- - E.g. factory
-
-```kotlin
-class MyClass private constructor() {
-    companion object {
-        fun create(): MyClass = MyClass()
-    }
-}
-val instance = MyClass.create()
-```
-
-<!-- 
-Note:
- - methods in companion object accessed with classname
- - private constructor
-
- - If a group of functions are high level, general, and widely useful then place them
-directly within a package. 
-- If on the other hand, a few functions are more closely related to each other than the other functions, like create() and configure(), are more closely related to each other than to milesToKm() ,then place them within a singleton.
--->
----
-
-## Tuples
- - to
- - destructuring
-
-```kotlin
-val tuple = 42 to "The meaning"
-println( "tuple: $tuple")
-val theSecret = tuple.first
-val (secret, message) = tuple
-println("secret: $secret, message: $message")
-```
-
----
-
-## Data class is tuple
-```kotlin
-data class Person(val name: String, val age: Int, val occupation: String)
-val bjorn = Person("Bjørn", 46, "Programmer")
-val (na, _, occ) = bjorn
-println("$na is a $occ")
-```
----
-## Collections
- - immutable "by default"
-
-```kotlin
-val list = listOf("Bjørn", "Erik", "Thomas")
-val set  = setOf("Bjørn", "Erik", "Thomas")
-val map  = mapOf("B" to "Bjørn", "E" to "Erik")
-val modifiedList = list + "The Bear"
-println(list) //[Bjørn, Erik, Thomas]
-println(modifiedList) //[Bjørn, Erik, Thomas, The Bear]
-```
-
----
-
-## Collections
- - can be mutable
-
-```kotlin
-val arrayList  = arrayListOf("Bjørn", "Erik", "Thomas")
-val array      = arrayOf("Bjørn", "Erik", "Thomas")
-
-val mlist = mutableListOf("Bjørn", "Erik", "Thomas")
-val mset  = mutableSetOf("Bjørn", "Erik", "Thomas")
-val mmap  = mutableMapOf("B" to "Bjørn", "E" to "Erik")
-println(mmap)
-```
-
----
-
 ## Using collections
  - Like in Java
  - No .stream() or .collect()
  - Use { and }
-
-```kotlin
-data class Employee(val name: String, val salary: Long)
-
-val employees = listOf(
-    Employee("Bjørn", 1_000_000),
-    Employee("Junior", 300_000),
-    Employee("The Boss", 5_000_000)
-)
-
-val highSalaries: List<Long> =
-    employees.filter { it.salary > 500_000 }
-        .filter { emp -> emp.salary > 500_000 }
-        .map { it.salary }
-val average = highSalaries.average()
-```
 
 ---
 
@@ -315,3 +277,4 @@ val average = highSalaries.average()
  - Can implement interfaces
  - supports inheritance
  - ...whatever java classes can do
+--
