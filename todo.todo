@@ -1,0 +1,21 @@
+Dag 2:
+  ☐ Delegation
+  ☐ ::class vs ::class.java
+  ☐ lazy execution
+  ✔ funksjoner som parametres osv. @done(21-10-03 11:41)
+  ☐ lateinit
+  ☐ På !! operator, si noe om enhetstester, var og setup og lateinit?
+  ☐ Kotlin assignment, ikke set(), 
+  ☐ constructor arguments and init og rekkefølge
+  ☐ destructuring
+  ☐ quiz return types: m/u =, block og uten
+    fun returnLambda() = { () -> println("Lambda")}
+    fun returnLambda() { println("Lambda") }
+  ☐ getter/setter på fields
+  ☐ data class osm testdata med copy og default named arguments
+  ☐ Add part 3 to outline of workshop
+  ✔ Something @done(21-10-03 10:29)
+  
+Virker ikke i Java:
+  ☐ default values og named arguments
+  ☐ use for try-with-resources

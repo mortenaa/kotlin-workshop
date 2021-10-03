@@ -41,14 +41,15 @@ og kom heller tilbake til oppgaver
 
 ## About Kotlin
 
- - New programming language
+ - "New" programming language
  - Developed by Jetbrains
  - Inspired (a lot) by Scala, Groovy and others
 
 <!--
 Note:
-- Lansert i 2011
+- Lansert i 2011, 10-årsjubileum i år
 - v1.0 regnet som første stabile release kom i 2016
+- v1.5 nåværende versjon
 - Introdusert som et alternativ til Java.
 - Objekt orientert og funksjonelt
 - Språket utvikles av JetBrains, men er Open Source, og har mange eksterne bidragsytere
@@ -68,12 +69,13 @@ Note:
 <!-- Note:
 Mer konsist språk. Lett å ta i bruk i en java kodebase. Veldig bra Java interop. Trygger språk,
 flere feil kan fanges opp av kompilatoren før koden kjøres.
+Når jeg sier "enn" her, så er det sammenlignet med f.eks. Java.
 -->
 
 ---
 
 ## Kotlin compiles to 
- - Jvm
+ - Jvm ( < 17)
  - Javascript
  - Native
  - Android
@@ -117,7 +119,7 @@ Multidimensjonale array ikke så elegant
 Any er superklassen til alle klasser (som Object i Java)
 Unit er en singleton type som kun har en verdi. Brukes som void i Java.
 Nothing er en type uten instanser. Representerer en ikke eksisterende verdi. En funksjon som har returtype
-Nothing kan ikke returnere noe (ikke en gang Unit) og m derfor caste en exception eller gå i en evig løkke.
+Nothing kan ikke returnere noe (ikke en gang Unit) og må derfor caste en exception eller gå i en evig løkke.
 -->
 
 ---
@@ -183,7 +185,7 @@ fun squareWithBlock(n: Int): Int {
     //always 'return' in a block
 }
 fun squareOneLiner(n: Int) =  n * n
-println("square(3) == ${square(3)}") //> 9
+println("squareWithBlock(3) == ${squareWithBlock(3)}") //> 9
 
 ```
 
@@ -232,6 +234,8 @@ printTemperature(37.0)
 > temperature is 37.0 Celcius
 ```
 
+<!-- Default values virker ikke fra java" -->
+
 ---
 
 ## Named arguments
@@ -241,7 +245,9 @@ printTemperature(37.0)
 ```kotlin
 fun confusing(name: String, isActive: Boolean, isAdmin: Boolean){}
 
+//used with positional arguments
 confusing("Ole", true, true)
+//used with named arguments
 confusing(name = "Ole", isAdmin = true, isActive = false)
 ```
 
@@ -267,7 +273,8 @@ if (middleName != null) {
 <!-- Note:
 Compiler forstår at middleName ikke er null etter en nullsjekk,
 selv om type er nullable
-Ingen Optional type i utganspunktet (men man kan om man vil) -->
+Ingen Optional type i utganspunktet (men man kan om man vil)
+ -->
 
 ---
 ## Nullsafe and Elvis
@@ -331,10 +338,10 @@ when (surprise) {
     3.14      -> whatIsIt = "PI"
 }
 ```
-But 'var' isn't functional !
+But 'var' isn't functional (it can be reassigned)
 
 <!-- Note:
-Bjørn tar over fom. denne sliden
+- Ligner på Java sin switch
 - brukes hvor en ellers ville brukt switch, else if
 - smart casting
 - sjekk type og verdi på variabel
@@ -346,7 +353,7 @@ Bjørn tar over fom. denne sliden
 ## Pattern to avoid var
  - Use `when` as expression
  - Must cover all possibilities (be exhaustive)
- - can have a default part (else)
+ - Must have a default part (else) or be exhaustive
 
 ```kotlin
 val surprise: Any = getSomething()
@@ -384,6 +391,8 @@ val result = when {
 val random = Random().nextInt()
 val absoluteValue = if (random < 0) -random else random
 ```
+
+<!-- Velegnet for enkle if else -->
 
 ---
 
@@ -453,8 +462,7 @@ public class Person {
  - Getters and Setters (for vars) generated
 
 ```kotlin
-class Person(val firstName: String, var lastName: String) {
-}
+class Person(val firstName: String, var lastName: String) {}
 
 val bjorn = Person("Bjørn", "Hamre")
 println(bjorn.firstName)
@@ -510,13 +518,10 @@ println(namedArguments.initials())    //> BHH
 ```
 
 <!--
-@[1-5]
-@[7, 13]
-@[8-11, 14]
-Note:
 - Default values -> fewer constructors
 - Put default values at the end of the signature
 - When using named arguments to the constructor it looks a lot like a builder
+- never used builder after using Kotlin
 - Characters accessed as in array. Indexed, get(). Must use get with ?.
 -->
 
@@ -572,9 +577,8 @@ All possible implementations of a seal class are known
 ---
 
 ## Data class
-- When data matters
 - immutable (if val)
-- copy(), toString(), equals()
+- copy(), toString(), equals(), hashCode()
 
 ```kotlin
 data class Person(
@@ -583,9 +587,11 @@ data class Person(
         val age: Int,
         val sex: String = "Not given"
 )
+
 val bjorn = Person("Bjørn", "Hamre", 46)
 println(bjorn)
 > Person(firstName=Bjørn, lastName=Hamre, age=46, sex=Not given)
+
 val otherBjorn = bjorn.copy(sex = "Male", age = 29)
 println(otherBjorn)
 > Person(firstName=Bjørn, lastName=Hamre, age=29, sex=Male)
@@ -693,34 +699,36 @@ mutableFruits.add("Kiwi")
 Note:
 .get notasjonen er nyttig hvis val som holder collection er nullable,
 da kan man bruke collection?.get(i) men ikke collection[i]
+som vi så på initials tidligere.
 -->
 
 ---
 
 ## Filter and Map collections
- - Like in Java
- - No .stream() or .collect()
+ - No .stream() or .collect() like in Java
  - Implicit parameter is named 'it'
 
 ```kotlin
 data class Employee(val name: String, val salary: Long)
+
 val employees = listOf(
     Employee("Bjørn", 1_000_000),
     Employee("Junior", 300_000),
     Employee("The Boss", 5_000_000)
 )
+
 val highSalaries: List<Long> =
     employees.filter { emp -> emp.salary > 500_000 }
-        .map { it.salary }
+             .map { it.salary } //.map{ emp -> emp.salary } 
+
 val average = highSalaries.average()
 
 ```
 
 <!--
-@[1]
-@[2-6]
-@[7-11]
-Note: Vi kommer tilbake til syntax for lambda utrykk
+- Kotlin har også en filterNot
+- it er default navn på paramter -> kan forenkle og droppe pilen
+- en del nyttige funksjoner avhengig av typen i collections
 -->
 
 ---
@@ -728,7 +736,7 @@ Note: Vi kommer tilbake til syntax for lambda utrykk
 ## Reduce a collection
 - reduce/reduceRight
    - Starts with first two elements
-   - Reduces to the same type
+   - Reduces to the same type (List<Long> -> Long)
 
 ```kotlin
 val sumReduced = employees.map { it.salary }
@@ -751,11 +759,12 @@ Note:
 - fold/foldRight
    - Starts with an initial value and first element
    - Can be applied to empty collections
+   - Can reduce to a different type (List<Employee> -> Long)
 
 ```kotlin
-employees.foldRight(0L) { it, sum -> it.salary + sum }
-
 employees.fold(0L) { sum, it -> it.salary + sum }
+
+employees.foldRight(0L) { it, sum -> it.salary + sum }
 ```
 
 <!--
@@ -774,19 +783,17 @@ utenfor parantesene
 ```kotlin
 val concatenator: (s1: String, s2: String) -> String 
     = { s1: String, s2: String -> s1+s2}
+
 val concatenator: (s1: String, s2: String) -> String 
     = { s1, s2 -> s1+s2}
+
 val concatenator = { s1: String, s2: String -> s1+s2}
 
 val name = concatenator("First", "Last")
 ```
 
 <!--
-@[1-2]
-@[3-4]
-@[5]
-@[7]
-Note:
+
 parameter til lambda kan ofte utledes
 type signaturen til lambdaen kan utledes
 kan utelate argument til lambda om det kun er en (it)
@@ -802,7 +809,9 @@ kan bruke _ for argument vi ikke bryr oss om
 fun intOperator(v1: Int, v2: Int, op: (Int, Int) -> Int ): Int 
     = op(v1, v2)
 val sum = intOperator(2, 3, { n1, n2 -> n1 + n2 })
+
 val sum2 = intOperator(2, 3) { n1, n2 -> n1 + n2 }
+
 val sum3 = intOperator(2, 3, Int::plus)
 ```
 
@@ -820,8 +829,11 @@ Kan referere til funksjoner med :: om de har riktig signatur
 
 ```kotlin
 fun times(base: Int): (Int) -> Int = { value -> base * value }
+
 val doubler = times(2)  //2 => base
+
 val trippler: (Int) -> Int = times(3)
+
 println("2 x 4 = ${doubler(4)}")
 > 2 x 4 = 8
 ```
@@ -842,8 +854,9 @@ og kalles som en vanlig funksjon
 val tuple = 42 to "The meaning"
 val pair = Pair(42, "The meaning")
 val theSecret = tuple.first
+val theMeaning = tuple.second
 
-val (secret, message) = tuple
+val (theSecret, theMeaning) = tuple
 ```
 
 <!--
@@ -877,6 +890,7 @@ Note:
 ---
 
 ## object / singleton
+- https://csharpindepth.com/articles/Singleton
 - No constructor
 - No private constructor and hassle
 - Replaces static utility classes in Java

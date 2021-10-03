@@ -65,11 +65,23 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-script-runtime</artifactId>
-            <version>RELEASE</version>
+            <version>${kotlin.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom -->
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-bom</artifactId>
+            <version>${kotlin.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <testSourceDirectory>src/test/kotlin</testSourceDirectory>
