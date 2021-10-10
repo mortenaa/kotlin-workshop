@@ -24,8 +24,28 @@ Temperature is 21.5 Celsius
 <!--
 Rotete med mange konstruktører.
 Alternativ for mixed Java - Kotlin-prosjekter
+Should always try to reduce the number of constructors.
 -->
+---
+# init {}
+* Executed on creation, after contructor
+* Set up and initialization
+* Validation
+```kotlin
+data class Person(
+    val firstName: String, 
+    val middleName: String? = null, 
+    val lastName: String) {
 
+    val fullName: String
+
+    init {
+        require(firstName.length > 0) { "Firstname cannot be empty" }
+        require(lastName.length > 0) { "Lastname cannot be empty" }
+        fullName = "$firstName ${middleName?:""} $lastName"
+    }
+}
+```
 ---
 # Companion (creational pattern)
 ```kotlin
@@ -60,113 +80,64 @@ class Temperature(val value: Double, val unit: String = "Celsius") {
 Temperature.of(3.5));
 ```
 ---
-# Scoping functions
-* let
-* with
-* apply
-* run
-* also
 
+# More about classes
+* Abstract
+* open
+* Sealed
 ---
-# let
-* Easier to read than `if (obj != null){}` 
-* Last statement returned
-```kotlin
-var canBeNull: String? = "Something"
 
-canBeNull?.let{ 
-    println("Not null: $it")
+# Abstract classes
+* `abstract` keyword
+*  abstract method(s) without implementation
+```kotlin
+abstract class Developer(val name: String){
+    abstract fun expertice(): String
 }
 
-val upper = canBeNull?.let{ st ->
-    st.uppercase()
+class Hipster(name: String) : Developer(name) {
+    override fun expertice(): String = "Frontend"
 }
 
-```
----
-# Many operations on same object
-* Receiver is parameter (it)
-```kotlin
-val alice = Person("Alice", 20, "Amsterdam")
-println(alice)
-alice.moveTo("London")
-alice.incrementAge()
-println(alice)
-```
-```kotlin
-Person("Alice", 20, "Amsterdam").let {
-    println(it)
-    it.moveTo("London")
-    it.incrementAge()
-    println(it)
+class Dinosaur(name: String) : Developer(name) {
+    override fun expertice(): String = "Backend"
 }
 ```
 
-<!-- Legg merke til at objektet aksesseres med it -->
 ---
-# with
-* Multiple operations on same object
-* Receiver is the object itself (this)
-* Last statement returned
-```kotlin
-val numbers = mutableListOf("one", "two", "three")
-val w = with(numbers) {
-    val firstItem = first()
-    val lastItem = last()
-    println("Size: $size, First item: $firstItem, last item: $lastItem")
-    42
-}
-println (w)
-> 42
-```
 
-<!-- Jobber på insiden av objektet selv -->
-
----
-# apply
-* Multiple assignments on same object
-* The object is returned
-* Object configuration
+# Default 'closed'
+* Cannot be sub-classed
+* Use `open` to allow sub-classes
+* Beware frameworks that proxy classes
 ```kotlin
-val adam = Person("Adam").apply {
-    age = 32
-    city = "London"        
-}
-println(adam)
-```
-
-<!-- 
-Konfigurasjon? Påkrevde verdier i konstruktør, default values på resten, kan settes enkeltvis 
-Objektet returneres (ikke siste uttrykk i blokken)
--->
----
-# run
-* Extension on "receiver object"
-* Can use it's methods without reference
-  * as an internal function
-* Last statement returned  
-```kotlin
-val str = "Hello"
-// this
-val lastStatement = str.run {
-    println("The receiver string length: $length")
-    //println("The receiver string length: ${this.length}") // does the same
-}
-```    
-<!-- Ligner veldig på with, men kan brukes med null-safe operator -->
----
-# also
-* Takes the object as niput
-* Returns the object
-```kotlin
-val two = listOf(1, 2, 3, 4, 5)
-    .filter { it % 2 == 0 }
-    .also { println(it) }
-    .first()
-println(two)
+open class CanBeSubclassed(){}
+class Subclass(): CanBeSubclassed(){}
 ```
 <!--
-Bruker det i midten av listeoperasjoner hvor jeg ikke ønsker å avbryte strømmen.
+    Spring framework and hibernate proxies classes, and mutst thus be open.
+    Often handled by special compiler plugins.
+ -->
+---
+# Sealed class (and interface)
+* Restricts possible subclasses 
+* All subclasses must be known compile time
+* Sealed class is abstract
+* Can have abstract methods
+```kotlin
+sealed class Option<T>
+class None<T>(): Option<T>()
+class Some<T>(val value: T) : Option<T>()
+
+val maybeSomething: Option<Int> = TODO()
+when (maybeSomething){
+    is None -> println("Nothing")
+    is Some -> println("value=${maybeSomething.value}")
+}
+```
+<!-- 
+    Compiler knows when the matching is exhaustive.
+    Feature introduced in Java 16
 -->
 ---
 # Extensions
@@ -377,7 +348,111 @@ Note:
    - internal: available from any code in the same module (=compiled together)
 
 ---
+# Scoping functions
+* let
+* with
+* apply
+* run
+* also
 
-## More about classes
- - Can be abstract, sealed, open
---
+---
+# let
+* Easier to read than `if (obj != null){}` 
+* Last statement returned
+```kotlin
+var canBeNull: String? = "Something"
+
+canBeNull?.let{ 
+    println("Not null: $it")
+}
+
+val upper = canBeNull?.let{ st ->
+    st.uppercase()
+}
+
+```
+---
+# Many operations on same object
+* Receiver is parameter (it)
+```kotlin
+val alice = Person("Alice", 20, "Amsterdam")
+println(alice)
+alice.moveTo("London")
+alice.incrementAge()
+println(alice)
+```
+```kotlin
+Person("Alice", 20, "Amsterdam").let {
+    println(it)
+    it.moveTo("London")
+    it.incrementAge()
+    println(it)
+}
+```
+
+<!-- Legg merke til at objektet aksesseres med it -->
+---
+# with
+* Multiple operations on same object
+* Receiver is the object itself (this)
+* Last statement returned
+```kotlin
+val numbers = mutableListOf("one", "two", "three")
+val w = with(numbers) {
+    val firstItem = first()
+    val lastItem = last()
+    println("Size: $size, First item: $firstItem, last item: $lastItem")
+    42
+}
+println (w)
+> 42
+```
+
+<!-- Jobber på insiden av objektet selv -->
+
+---
+# apply
+* Multiple assignments on same object
+* The object is returned
+* Object configuration
+```kotlin
+val adam = Person("Adam").apply {
+    age = 32
+    city = "London"        
+}
+println(adam)
+```
+
+<!-- 
+Konfigurasjon? Påkrevde verdier i konstruktør, default values på resten, kan settes enkeltvis 
+Objektet returneres (ikke siste uttrykk i blokken)
+-->
+---
+# run
+* Extension on "receiver object"
+* Can use it's methods without reference
+  * as an internal function
+* Last statement returned  
+```kotlin
+val str = "Hello"
+// this
+val lastStatement = str.run {
+    println("The receiver string length: $length")
+    //println("The receiver string length: ${this.length}") // does the same
+}
+```    
+<!-- Ligner veldig på with, men kan brukes med null-safe operator -->
+---
+# also
+* Takes the object as niput
+* Returns the object
+```kotlin
+val two = listOf(1, 2, 3, 4, 5)
+    .filter { it % 2 == 0 }
+    .also { println(it) }
+    .first()
+println(two)
+```
+<!--
+Bruker det i midten av listeoperasjoner hvor jeg ikke ønsker å avbryte strømmen.
+-->
