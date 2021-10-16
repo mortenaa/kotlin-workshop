@@ -16,16 +16,32 @@ https://github.com/javaguruen/kotlin-workshop
 
 ---
 
+# About me
+
+- Solutions architect at Ambita/Sikri
+- Leader of the API group at Ambita
+- Mainly backend developer
+- Language nerd
+- Fascinated by funtional programming
+- Above average interested in API
+- Member of javaBin Bergen
+- Given several presentations and workshops at conferences and usergroups in Norway (both for kids and older kids)
+
+---
+
 # Program (day 1)
 
  - Part 1 - Syntax / Functions / Types
-    - 25 min. introduction
-    - 35 min. exercises
+    - 25 min. introduction + theory
+    - 30 min. exercises
     - 10 min. solutions
  - Part 2 - Classes / Objects / Collection
-    - 50 min. theory
-    - 45 min. exercises
-    - 15 min. solutions 
+    - 45 min. theory
+    - 30 min. exercises
+ - Part 3 (day two) 
+    - 15 min. theory 
+    - 30 min. theory
+
 
 <!-- Note:
 Ikke bruk for mye tid på en enkelt oppgave eller seksjon, prøv å være innom alle seksjonene,
@@ -52,7 +68,7 @@ Note:
 - v1.5 nåværende versjon
 - Introdusert som et alternativ til Java.
 - Objekt orientert og funksjonelt
-- Språket utvikles av JetBrains, men er Open Source, og har mange eksterne bidragsytere
+- Språket utvikles av JetBrains som lager IntelliJ Idea, men er Open Source, og har mange eksterne bidragsytere
 - Popular on android. Supported by Google.
 - Siden mai 2019 det foretrukne språket på Android
 -->
@@ -67,9 +83,12 @@ Note:
  - Null safe
 
 <!-- Note:
-Mer konsist språk. Lett å ta i bruk i en java kodebase. Veldig bra Java interop. Trygger språk,
-flere feil kan fanges opp av kompilatoren før koden kjøres.
+Mer konsist språk. 
+Lett å kombinere med java i ett prosjekt. 
+Tryggere språk, flere feil kan fanges opp av kompilatoren før koden kjøres.
 Når jeg sier "enn" her, så er det sammenlignet med f.eks. Java.
+Null-handlingen genial.
+Skal komme tilbake til funksjonelle prinsipper etter hvert.
 -->
 
 ---
@@ -85,20 +104,6 @@ Jvm, inkludert gralVM
 Nativ via LLVM og nativ implementasjon av standardbibliotek. (uten vm, men med gc)
 Js i frontend, som muligjør deling av kode mellom backend og frontent
 Dominerende språk på Android
--->
-
----
-
-## Getting started
- - Download Kotlin
- - IntelliJ has Kotlin support
- - Maven and gradle support
- - Easy to run scripts (.kts)
-
-<!--
-Note:
-Innebygd Kotlin støtte i IntelliJ, trenger ikke laste ned noe selv.
-IntelliJ har også en Kotlin REPL
 -->
 
 ---
@@ -146,7 +151,9 @@ Semicolons are optional, but are by convention only used to separate multiple st
 val betyr at variabelen ikke kan tilordnes på nytt, ikke at innholdet er immutable!
 type interferens betyr at vi ikke trenger å gjente oss selv i deklarasjoner (er også komt til Java)
 == tilsvarer equals og sammenligner innhold (om equals er implementert slik)
-=== er referanselikhet som == i Java -->
+=== er referanselikhet som == i Java 
+Skal alltid forsøke å bruk val istedenfor var.
+-->
 
 ---
 
@@ -176,7 +183,7 @@ raw string kan inneholde spesialteng uten escaping. også nyttig for regexp. -->
 
 ## Functions/methods 
  - fun keyword
- - can be top level outside class
+ - Can be top level outside class
  
 
 ```kotlin
@@ -298,6 +305,7 @@ val defaultIfNull: String = middleName?.toUpperCase() ?: ""
  - The not-null assertion operator
  - !! converts any value to a non-null type
  - Throws an exception if the value is null. 
+ - Use sparingly
  
 ```kotlin
 val l = b!!.length
@@ -344,9 +352,11 @@ But 'var' isn't functional (it can be reassigned)
 - Ligner på Java sin switch
 - brukes hvor en ellers ville brukt switch, else if
 - smart casting
+- Støtter ikke boolsk OG-operator
 - sjekk type og verdi på variabel
 - tilordning inne i when -> må være var
-- prøv alltid å bruke val -->
+- prøv alltid å bruke val 
+-->
 
 ---
 
@@ -380,7 +390,9 @@ val result = when {
 }
 ``` 
 <!-- Note: 
-- can have more complex expressions -->
+- can have more complex expressions.
+- Støtter ikke AND
+ -->
 
 ---
 
@@ -417,6 +429,8 @@ val value = try {
 # Exercises - Part 1
 **https://github.com/javaguruen/kotlin-workshop**
 
+- Solve 1- 3
+- make tests green
 ---
 
 # Part 2
@@ -527,7 +541,8 @@ println(namedArguments.initials())    //> BHH
 
 ---
 ## Inheritance
- - Superclass must be open
+ - Superclass must be open (final by default)
+    - Same for functions anv variables
  - Using ':'
  - Must call constructor on superclass
 
@@ -548,6 +563,7 @@ Note:
     - protected
     - internal
     - sealed
+ - Note 'name' in IdenPerson is only constructor arg.
 -->
 
 ---
@@ -567,12 +583,6 @@ class PersonServiceImpl : PersonService {
     }
 }
 ```
-<!--
-Note:
-Skal vi si noe om sealed?
-Sealed classes must have all subclasses implemented in the same file.
-All possible implementations of a seal class are known
--->
 
 ---
 
@@ -598,9 +608,6 @@ println(otherBjorn)
 ```
 
 <!-- 
-@[1-6]
-@[7-9]
-@[10-12]
 Note:
  - Can implement methods
  - Inheritance: A data class can extend but not be extended
@@ -648,8 +655,6 @@ println(modifiedList) //[Bjørn, Erik, Thomas, The Bear]
 ```
 
 <!-- 
-Note:
-Morten tar over fom. denne sliden
 Collections i Kotlin er Java stdlib collections, med
 utvidelser og tillegsfunksjoner som gjør de lettere å jobbe med.
 Kan utveksle kollections mellom java og kotlin kode uten noe konvertering
@@ -845,118 +850,8 @@ og kalles som en vanlig funksjon
 -->
 
 ---
-
-## Tuples/Pair
- - `to` / Pair
- - destructuring
-
-```kotlin
-val tuple = 42 to "The meaning"
-val pair = Pair(42, "The meaning")
-val theSecret = tuple.first
-val theMeaning = tuple.second
-
-val (theSecret, theMeaning) = tuple
-```
-
-<!--
-Note:
-- to er en infix funksjon som returnerer et Pair
-- kan også lage egne infix funksjoner (og operator overloading) men det kommer vi ikke inn på her
--->
-
----
-
-## Data class is tuple
-- Can be destructured
-- `_` for unused values
-- Order is important
-
-```kotlin
-data class Person(val name: String, 
-                  val age: Int, 
-                  val occupation: String)
-val bjorn = Person("Bjørn", 46, "Programmer")
-val (na, _, occ) = bjorn
-```
-<!--
-Note:
-- destucturing virker for klasser som implementerer component1, component2...
-- lister implementerer component1..5
-- data classer for alle properties
-- men blir feil om man endrer på rekkefølgen!
--->
-
----
-
-## object / singleton
-- https://csharpindepth.com/articles/Singleton
-- No constructor
-- No private constructor and hassle
-- Replaces static utility classes in Java
-
-```kotlin
-object Utilities {
-    fun toUpper(text: String) = text.toUpperCase()
-}
-
-val upperCase = Utilities.toUpper("Bjørn")
-```
-<!--
-note:
-- Utililites object we created using the object declaration is a singleton. 
-- We can’t create objects of Utilities — it’s not considered to be a class
-   - it’s already an object.
-- Think of it like a class with a private constructor and only static methods
-   - but with less code.
-- "static" utility classes
-- Not static in the byte code
--->
-
----
-
-## Companion object
- - object inside class
- - shared between instances of the class
- - Eg. Factory
-
-```kotlin
-class MyClass private constructor() {
-    companion object {
-        fun create(): MyClass = MyClass()
-    }
-}
-val instance = MyClass.create()
-```
-
-<!--
-Note:
- - methods in companion object accessed with classname in Kotlin
- - private constructor
-
- - If a group of functions are high level, general, and widely useful then place them
-directly within a package. 
-- If on the other hand, a few functions are more closely related to each other than the other functions, like create() and configure(), are more closely related to each other than to milesToKm() ,then place them within a singleton.
-- Static methods in Java
--->
-
----
-
 # Exercises - Part 2
 **https://github.com/javaguruen/kotlin-workshop**
 
---- 
- 
-## Resources
- - https://github.com/javaguruen/kotlin-workshop
- - https://kotlinlang.org/docs/reference/
- - https://play.kotlinlang.org/koans/overview
- - https://www.coursera.org/learn/kotlin-for-java-developers
- - https://surveys.jetbrains.com/s3/kotlin-slack-sign-up
-
-<!--
-Note:
-Spesifikasjon, stdlib doc, tutorials++ på kotlinlang
-Kotlin Koans kan løses online eller med EduTools plugin i intellij, den brukes også til å løse oppgaver
-i Coursera kurset.
--->
+- Solve 1- 2 (maybe start on 3?)
+- make tests green
