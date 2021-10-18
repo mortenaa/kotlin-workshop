@@ -712,6 +712,7 @@ som vi så på initials tidligere.
 ## Filter and Map collections
  - No .stream() or .collect() like in Java
  - Implicit parameter is named 'it'
+ - Well balanced
 
 ```kotlin
 data class Employee(val name: String, val salary: Long)
@@ -734,6 +735,9 @@ val average = highSalaries.average()
 - Kotlin har også en filterNot
 - it er default navn på paramter -> kan forenkle og droppe pilen
 - en del nyttige funksjoner avhengig av typen i collections
+- xxxOrNull
+- xxNot
+- xxxNotNull
 -->
 
 ---
