@@ -575,15 +575,22 @@ Note:
 ```kotlin
 interface PersonService {
     fun addPerson(personToAdd: Person)
+    fun anotherFunction(persons: List<Person>)
 }
 
 class PersonServiceImpl : PersonService {
     override fun addPerson(personToAdd: Person) {
         println("Persisting to database: $personToAdd")
     }
+
+    override fun anotherFunction(persons: List<Person>){
+        TODO()
+    }
 }
 ```
-
+<!--
+TODO let's you compile without implementing dummy values for every method
+-->
 ---
 
 ## Data class
